@@ -13,11 +13,16 @@ export class ItemsListComponent implements OnInit {
   constructor(public itemsService: ItemsService) { }
 
   ngOnInit() {
-    this.items = this.itemsService.getItems();
+    this.getItems();
   }
 
   delete(item: Item) {
+    this.itemsService.deleteItem(item);
+    this.getItems();
+  }
 
+  getItems() {
+    this.items = this.itemsService.getItems();
   }
 
 }
