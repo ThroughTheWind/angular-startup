@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Item } from './models/Item';
+import { Item } from './Item';
 
 const DEFAULT_ITEMS: Item[] = [{
   id: '1',

@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { ItemsService } from '../items.service';
-import { Item } from '../models/Item';
-import { EditState } from '../enum/edit-state';
+import { Item } from '../Item';
+import { EditState } from '../../enum/edit-state';
 
 @Component({
   selector: 'app-items-edit',
