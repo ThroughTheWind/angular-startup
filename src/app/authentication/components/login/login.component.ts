@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
-import { AuthenticationService } from '../authentication.service';
-import { Authentication } from '../authentication';
+import { AuthenticationService } from '../../services/authentication.service';
+import { Authentication } from '../../authentication';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   navigateToHome() {
-    this.router.navigateByUrl('./');
+    this.router.navigate(['authentication']);
   }
 
 }

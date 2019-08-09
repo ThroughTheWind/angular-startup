@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthenticationComponent } from './authentication.component';
-import { LoginComponent } from './login/login.component';
-import { GuardedComponent } from './guarded/guarded.component';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
-import { AuthenticationGuard } from './authentication.guard';
-import { AnonymousGuard } from './anonymous.guard';
+import { AuthenticationComponent } from './components/authentication.component';
+import { LoginComponent } from './components/login/login.component';
+import { GuardedComponent } from './components/guarded/guarded.component';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+
+import { AuthenticationGuard } from './guards/authentication.guard';
+import { AnonymousGuard } from './guards/anonymous.guard';
 
 
 const routes: Routes = [
