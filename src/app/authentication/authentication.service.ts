@@ -1,4 +1,4 @@
-import { Authentication } from './model/authentication';
+import { Authentication } from './authentication';
 import { Injectable } from '@angular/core';
 
 const DEFAULT_USERS: Authentication[] = [{

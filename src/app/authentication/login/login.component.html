@@ -1,0 +1,22 @@
+<div>
+    <div>
+        <label>Username</label>
+        <input type="text" [(ngModel)]="credentials.username" name="username"/>
+    </div>
+    <div>
+        <label>Mot de passe</label>
+        <input type="text" [(ngModel)]="credentials.password" name="password"/>
+    </div>
+    <div>
+        <button (click)="submit()">Log In</button>
+    </div>
+</div>
+<div>
+    <p>Log in as "[{{ '{' }}
+            username: 'TestUser',
+            password: 'TestPwd'
+            {{ '}' }}, {{ '{' }}
+            username: 'TestUser2',
+            password: 'TestPwd2'
+            {{ '}' }}]"</p>
+</div>

@@ -3,20 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+
+import { AuthenticationModule } from './authentication/authentication.module';
+
 import { AppComponent } from './app.component';
-import { AuthenticationComponent } from './authentication/authentication.component';
-import { GuardedComponent } from './guarded/guarded.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AuthenticationComponent,
-    GuardedComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    AuthenticationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
