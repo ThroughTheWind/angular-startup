@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 
-import { ItemsModule } from './items/items.module';
+import { ItemsModule } from './modules/items/items.module';
 
 
 @NgModule({

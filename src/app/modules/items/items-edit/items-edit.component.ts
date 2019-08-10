@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 
 import { ItemsService } from '../items.service';
 import { Item } from '../Item';
-import { EditState } from '../../enum/edit-state';
+import { EditState } from '../../../enum/edit-state';
 
 @Component({
   selector: 'app-items-edit',
