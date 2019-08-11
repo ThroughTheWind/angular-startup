@@ -20,9 +20,12 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    if (this.authenticationService.logIn(this.credentials)) {
-      this.navigateToHome();
-    }
+    this.authenticationService.logIn(this.credentials)
+    .subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        this.navigateToHome();
+      }
+    });
   }
 
   navigateToHome() {

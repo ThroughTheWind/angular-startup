@@ -1,5 +1,6 @@
 import { Authentication } from '../authentication';
 import { Injectable } from '@angular/core';
+import { Observable, of, throwError } from 'rxjs';
 
 const DEFAULT_USERS: Authentication[] = [{
   username: 'TestUser',
@@ -22,13 +23,13 @@ export class AuthenticationService {
     return this.token ? true : false;
   }
 
-  logIn(authentication: Authentication): boolean {
+  logIn(authentication: Authentication): Observable<boolean> {
     const user = DEFAULT_USERS.find(tmp => tmp.username === authentication.username);
     if (user) {
       this.token = user.password === authentication.password ? authentication : null;
-      return this.token ? true : false;
+      return of(this.token ? true : false);
     }
-    return false;
+    return of(false);
   }
 
   logOut() {
