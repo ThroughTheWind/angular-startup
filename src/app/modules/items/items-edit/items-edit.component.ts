@@ -24,14 +24,10 @@ export class ItemsEditComponent implements OnInit {
     if (this.item) {
       switch (this.state) {
         case EditState.CREATE:
-          if (this.itemsService.addItem(this.item)) {
-            this.navigateToList();
-          }
+          this.addItem();
           break;
         case EditState.EDIT:
-          if (this.itemsService.updateItem(this.item)) {
-            this.navigateToList();
-          }
+          this.updateItem();
           break;
       }
     }
@@ -40,17 +36,36 @@ export class ItemsEditComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      const item = this.itemsService.getItem(id);
-      if (item) {
-        this.state = EditState.EDIT;
-        this.item = item;
-        return;
-      }
-      this.navigateToList();
+      this.state = EditState.EDIT;
+      this.getItem(id);
     } else {
-      this.item = {} as Item;
       this.state = EditState.CREATE;
+      this.item = {} as Item;
     }
+  }
+
+  getItem(id) {
+    const item = this.itemsService.getItem(id).subscribe((item) => {
+      if (item) {
+        this.item = item;
+      } else {
+        this.navigateToList();
+      }
+    });
+  }
+
+  addItem() {
+    this.itemsService.addItem(this.item)
+      .subscribe((success) => {
+        if (success) { this.navigateToList(); }
+      });
+  }
+
+  updateItem() {
+    this.itemsService.updateItem(this.item)
+      .subscribe((success) => {
+        if (success) { this.navigateToList(); }
+      });
   }
 
   navigateToList() {

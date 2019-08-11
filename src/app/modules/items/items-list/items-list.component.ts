@@ -17,12 +17,15 @@ export class ItemsListComponent implements OnInit {
   }
 
   delete(item: Item) {
-    this.itemsService.deleteItem(item);
-    this.getItems();
+    this.itemsService.deleteItem(item).subscribe(() => {
+      this.getItems();
+    });
   }
 
   getItems() {
-    this.items = this.itemsService.getItems();
+    this.itemsService.getItems().subscribe((items) => {
+      this.items = items;
+    });
   }
 
 }
