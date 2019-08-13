@@ -1,24 +1,4 @@
 <h2>You items list</h2>
 <div>
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of items">
-                <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.description}}</td>
-                <td>
-                    <a [routerLink]="['/items/edit', item.id]">Edit</a>
-                    <a [routerLink]="" (click)="delete(item)">Delete</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <app-item *ngFor="let item of items" [item]="item" (deleted)="delete($event)"></app-item>
 </div>
