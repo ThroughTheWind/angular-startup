@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { ItemsService } from '../items.service';
 import { Item } from '../Item';
 import { EditState } from '../../../enum/edit-state';
+import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-items-edit',
@@ -13,15 +14,25 @@ import { EditState } from '../../../enum/edit-state';
 })
 export class ItemsEditComponent implements OnInit {
   state: EditState = EditState.CREATE;
-  item: Item;
-  constructor(public itemsService: ItemsService, private router: Router, private route: ActivatedRoute, private location: Location) { }
+  itemForm = this.fb.group({
+    id: ['', Validators.required, this.validateIdNotTaken.bind(this)],
+    name: ['', Validators.required],
+    description: ['', Validators.required],
+  });
+
+  get name() { return this.itemForm.get('name'); }
+  get id() { return this.itemForm.get('id'); }
+  get description() { return this.itemForm.get('description'); }
+
+  constructor(public itemsService: ItemsService, private router: Router, private route: ActivatedRoute, private location: Location,
+              private fb: FormBuilder) { }
 
   isCreateState() {
     return this.state === EditState.CREATE;
   }
 
-  submit() {
-    if (this.item) {
+  onSubmit() {
+    if (this.itemForm.valid) {
       switch (this.state) {
         case EditState.CREATE:
           this.addItem();
@@ -40,36 +51,65 @@ export class ItemsEditComponent implements OnInit {
       this.getItem(id);
     } else {
       this.state = EditState.CREATE;
-      this.item = {} as Item;
+      this.resetForm();
     }
   }
 
+  resetForm() {
+    this.itemForm.patchValue({
+      id: '',
+      name: '',
+      description: ''
+    });
+  }
+
   getItem(id) {
-    const item = this.itemsService.getItem(id).subscribe((item) => {
+    this.itemsService.getItem(id).subscribe((item) => {
       if (item) {
-        this.item = item;
+        this.itemForm.patchValue({
+          id: item.id,
+          name: item.name,
+          description: item.description
+        });
       } else {
         this.navigateToList();
       }
     });
   }
 
+  fetchItem(): Item {
+    return this.itemForm.valid ? this.itemForm.value as Item : null;
+  }
+
   addItem() {
-    this.itemsService.addItem(this.item)
-      .subscribe((success) => {
-        if (success) { this.navigateToList(); }
-      });
+    const item = this.fetchItem();
+    if (item) {
+      this.itemsService.addItem(item)
+        .subscribe((success) => {
+          if (success) { this.navigateToList(); }
+        });
+    }
   }
 
   updateItem() {
-    this.itemsService.updateItem(this.item)
-      .subscribe((success) => {
-        if (success) { this.navigateToList(); }
-      });
+    const item = this.fetchItem();
+    if (item) {
+      this.itemsService.updateItem(item)
+        .subscribe((success) => {
+          if (success) { this.navigateToList(); }
+        });
+    }
   }
 
   navigateToList() {
     this.router.navigateByUrl('/items/list');
+  }
+
+  validateIdNotTaken(control: AbstractControl) {
+    if (!this.isCreateState) { return null; }
+    return this.itemsService.checkIdNotTaken(control.value).subscribe((doesntExist) => {
+      return doesntExist ? null : {idTaken: true};
+    });
   }
 
 }

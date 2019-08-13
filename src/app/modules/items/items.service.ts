@@ -69,4 +69,15 @@ export class ItemsService {
     }
     return of(false);
   }
+
+  checkIdNotTaken(id: string): Observable<boolean> {
+    if (id) {
+      const existing = DEFAULT_ITEMS.find(itm => itm.id === id);
+      if (!existing) {
+        return of(true);
+      }
+    }
+    return of(false);
+
+  }
 }
