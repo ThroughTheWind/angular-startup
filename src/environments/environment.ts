@@ -9,7 +9,7 @@ export const environment = {
     authDomain: 'startupangular.firebaseapp.com',
     databaseURL: 'https://startupangular.firebaseio.com',
     projectId: 'startupangular',
-    storageBucket: '',
+    storageBucket: 'startupangular.appspot.com',
     messagingSenderId: '713593683098',
     appId: '1:713593683098:web:170b68c04b9ba480'
   }

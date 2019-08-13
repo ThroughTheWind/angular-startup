@@ -45,7 +45,7 @@ export class ItemsEditComponent implements OnInit {
   }
 
   getItem(id) {
-    const item = this.itemsService.getItem(id).subscribe((item) => {
+    this.itemsService.getItem(id).subscribe((item) => {
       if (item) {
         this.item = item;
       } else {
@@ -55,17 +55,13 @@ export class ItemsEditComponent implements OnInit {
   }
 
   addItem() {
-    this.itemsService.addItem(this.item)
-      .subscribe((success) => {
-        if (success) { this.navigateToList(); }
-      });
+    this.itemsService.addItem(this.item);
+    this.navigateToList();
   }
 
   updateItem() {
-    this.itemsService.updateItem(this.item)
-      .subscribe((success) => {
-        if (success) { this.navigateToList(); }
-      });
+    this.itemsService.updateItem(this.item);
+    this.navigateToList();
   }
 
   navigateToList() {

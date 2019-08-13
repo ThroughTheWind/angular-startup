@@ -1,3 +1,5 @@
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+
 import { Injectable } from '@angular/core';
 import { Item } from './Item';
 import { Observable, of } from 'rxjs';
@@ -17,56 +19,44 @@ const DEFAULT_ITEMS: Item[] = [{
   providedIn: 'root'
 })
 export class ItemsService {
+  private itemsCollection: AngularFirestoreCollection<Item>;
+  items: Observable<Item[]>;
 
-  constructor() { }
+  constructor(private db: AngularFirestore) {
+    this.itemsCollection = db.collection<Item>('items');
+    this.items = this.itemsCollection.valueChanges();
+    console.log(this.items);
+  }
 
   getItems(): Observable<Item[]> {
-    return of(DEFAULT_ITEMS);
+    return this.items;
   }
 
   getItem(id: string): Observable<Item> {
-    const item = DEFAULT_ITEMS.find(itm => itm.id === id);
-    return of(item ? item : null);
+    return this.itemsCollection.doc<Item>(id).valueChanges();
   }
 
-  addItem(item: Item): Observable<boolean> {
+  addItem(item: Item) {
+    const id = this.db.createId();
+    item.id = id;
+    this.itemsCollection.doc(id).set(item);
+  }
+
+  updateItem(item: Item) {
     if (item) {
-      const existing = DEFAULT_ITEMS.find(itm => itm.id === item.id);
-      if (!existing) {
-        DEFAULT_ITEMS.push(item);
-        return of(true);
-      }
+      this.itemsCollection.doc(item.id).update(item);
     }
-    return of(false);
   }
 
-  updateItem(item: Item): Observable<boolean> {
+  deleteItem(item: Item) {
     if (item) {
-      const existing = DEFAULT_ITEMS.find(itm => itm.id === item.id);
-      if (existing) {
-        DEFAULT_ITEMS[DEFAULT_ITEMS.indexOf(existing)] = item;
-        return of(true);
-      }
+      this.deleteItemById(item.id);
     }
-    return of(false);
   }
 
-  deleteItem(item: Item): Observable<boolean> {
-    if (item) {
-      const index = DEFAULT_ITEMS.indexOf(item);
-      if (index > -1) {
-        DEFAULT_ITEMS.splice(index, 1);
-        return of(true);
-      }
-    }
-    return of(false);
-  }
-
-  deleteItemById(id: string): Observable<boolean> {
+  deleteItemById(id: string) {
     if (id) {
-      const existing = DEFAULT_ITEMS.find(itm => itm.id === id);
-      return this.deleteItem(existing);
+      this.itemsCollection.doc(id).delete();
     }
-    return of(false);
   }
 }
