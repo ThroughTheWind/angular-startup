@@ -1,0 +1,21 @@
+<h2 *ngIf="isCreateState()">Nouvel item !</h2>
+<h2 *ngIf="!isCreateState()">Update item !</h2>
+<div>
+    <form>
+        <div>
+            <span>Id</span>
+            <input [(ngModel)]="item.id" name="id" required>
+        </div>
+        <div>
+            <span>Name</span>
+            <input [(ngModel)]="item.name" name="name" required>
+        </div>
+        <div>
+            <span>Description</span>
+            <input [(ngModel)]="item.description" name="description" required>
+        </div>
+        <div>
+            <button (click)="submit()">Submit</button>
+        </div>
+    </form>
+</div>

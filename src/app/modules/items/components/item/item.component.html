@@ -1,0 +1,6 @@
+<div *ngIf="item">
+    <h3>{{item.id}} - {{item.name}}</h3>
+    <p>{{item.description}}</p>
+    <a [routerLink]="['/items/edit', item.id]">Edit</a>
+    <a [routerLink]="" (click)="delete()">Delete</a>
+</div>

@@ -1,0 +1,4 @@
+<h2>You items list</h2>
+<div>
+    <app-item *ngFor="let item of items" [item]="item" (deleted)="delete($event)"></app-item>
+</div>
