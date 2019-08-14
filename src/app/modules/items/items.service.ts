@@ -3,17 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Injectable } from '@angular/core';
 import { Item } from './Item';
 import { Observable, of } from 'rxjs';
-
-
-const DEFAULT_ITEMS: Item[] = [{
-  id: '1',
-  name: 'Name 1',
-  description: 'Description 1'
-}, {
-  id: '2',
-  name: 'Name 2',
-  description: 'Description 2'
-}];
+import { map, filter, debounceTime, first } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -58,5 +48,21 @@ export class ItemsService {
     if (id) {
       this.itemsCollection.doc(id).delete();
     }
+  }
+
+  checkNameNotTaken(name: string, id: string = null): Observable<boolean> {
+    // return of(true);
+    return this.db.collection<Item>('items', ref => {
+      let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+      query = query.where('name', '==', name);
+      return query;
+    }).valueChanges()
+      .pipe(
+        debounceTime(500),
+        map(res => {
+          const filteredRes = id ? res.filter(item => item.id !== id) : res;
+          return filteredRes.length === 0;
+        })
+      );
   }
 }
