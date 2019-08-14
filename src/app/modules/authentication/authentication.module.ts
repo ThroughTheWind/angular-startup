@@ -1,4 +1,4 @@
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -19,7 +19,7 @@ import { GuardedComponent } from './components/guarded/guarded.component';
   ],
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     AuthenticationRoutingModule
   ]
 })
