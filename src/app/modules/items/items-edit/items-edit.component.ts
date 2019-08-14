@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { map } from 'rxjs/operators';
 
 import { ItemsService } from '../items.service';
 import { Item } from '../Item';
 import { EditState } from '../../../enum/edit-state';
 import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-items-edit',
@@ -106,10 +108,11 @@ export class ItemsEditComponent implements OnInit {
   }
 
   validateIdNotTaken(control: AbstractControl) {
+
     if (!this.isCreateState) { return null; }
-    return this.itemsService.checkIdNotTaken(control.value).subscribe((doesntExist) => {
-      return doesntExist ? null : {idTaken: true};
-    });
+    return this.itemsService.checkIdNotTaken(control.value).pipe(
+      map((doesntExists) => doesntExists ? null : {idTaken: true})
+    );
   }
 
 }

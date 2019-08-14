@@ -7,6 +7,7 @@
             <input id="id" formControlName="id" required [disabled]="!isCreateState()">
             <div *ngIf="id.errors && (id.touched || id.dirty)">
                 <span *ngIf="id.errors.required">Id is required</span>
+                <span *ngIf="id.errors.idTaken">Id already exists</span>
             </div>
         </div>
         <div>
