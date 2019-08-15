@@ -1,4 +1,7 @@
+import { Authentication } from './modules/authentication/authentication';
+import { AuthenticationService } from './modules/authentication/services/authentication.service';
 import { Component } from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'statup-angular';
+  constructor(private authenticationService: AuthenticationService) {}
+
+  isAuthenticated(): boolean {
+    return this.authenticationService.isAuthenticated();
+  }
+
+  logOut() {
+    this.authenticationService.logOut();
+  }
 }

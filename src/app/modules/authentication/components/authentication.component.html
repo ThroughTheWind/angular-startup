@@ -1,0 +1,6 @@
+<h2>Authentification</h2>
+<nav>
+    <a *ngIf="!isAuthenticated()" routerLink="./login" routerLinkActive="active">Log In</a>
+    <a routerLink="./guarded" routerLinkActive="active">Guarded route</a>
+</nav>
+<router-outlet></router-outlet>

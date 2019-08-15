@@ -1,0 +1,37 @@
+<div>
+  <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <div>
+          <label>Username</label>
+          <input type="text" formControlName="username" required/>
+          <div *ngIf="username.errors && (username.dirty || username.touched)">
+            <span *ngIf="username.errors.required">
+              Username is required.
+            </span>
+          </div>
+      </div>
+      <div>
+          <label>Mot de passe</label>
+          <input type="password" formControlName="password" required/>
+          <div *ngIf="password.errors && (password.dirty || password.touched)">
+            <span *ngIf="password.errors.required">
+              Password is required.
+            </span>
+          </div>
+      </div>
+      <div *ngIf="invalidCredentials">
+        <p>Invalid credentials</p>
+      </div>
+      <div>
+          <button type="submit" [disabled]="!authForm.valid">Log In</button>
+      </div>
+  </form>
+</div>
+<div>
+    <p>Log in as "[{{ '{' }}
+            username: 'TestUser',
+            password: 'TestPwd'
+            {{ '}' }}, {{ '{' }}
+            username: 'TestUser2',
+            password: 'TestPwd2'
+            {{ '}' }}]"</p>
+</div>
