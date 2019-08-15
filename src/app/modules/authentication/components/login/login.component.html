@@ -7,6 +7,9 @@
             <span *ngIf="email.errors.required">
               Email is required.
             </span>
+            <span *ngIf="email.errors.validEmail">
+              Email must be valid.
+            </span>
           </div>
       </div>
       <div>

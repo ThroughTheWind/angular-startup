@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { User } from 'firebase';
 
 const USER_KEY = 'user';
 
@@ -19,7 +18,7 @@ export class AuthenticationService {
         localStorage.setItem(USER_KEY, '');
       }
     });
-   }
+  }
 
   token: Authentication = null;
 
@@ -29,7 +28,7 @@ export class AuthenticationService {
   }
 
   logIn(authentication: Authentication): Observable<boolean> {
-    const authObservable = from(this.afAuth.auth.signInWithEmailAndPassword(authentication.email, authentication.password))
+    const authObservable = from(this.afAuth.auth.signInWithEmailAndPassword(authentication.email, authentication.password));
     return authObservable.pipe(
       map(user => user ? true : false)
     );

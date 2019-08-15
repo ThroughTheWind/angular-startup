@@ -1,10 +1,11 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { AuthenticationService } from '../../services/authentication.service';
 import { Authentication } from '../../authentication';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ValidateEmail } from '../../../../shared/form.validators';
+
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   authForm = this.fb.group({
-    email: ['', Validators.required],
+    email: ['', [Validators.required, ValidateEmail]],
     password: ['', Validators.required]
   });
   get email() {return this.authForm.get('email'); }
