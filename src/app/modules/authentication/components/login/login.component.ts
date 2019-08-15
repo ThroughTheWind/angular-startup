@@ -14,10 +14,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   authForm = this.fb.group({
-    username: ['', Validators.required],
+    email: ['', Validators.required],
     password: ['', Validators.required]
   });
-  get username() {return this.authForm.get('username'); }
+  get email() {return this.authForm.get('email'); }
   get password() {return this.authForm.get('password'); }
   invalidCredentials = false;
 
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
           } else {
             this.invalidCredentials = true;
           }
-        });
+        }, () => this.invalidCredentials = true);
     }
   }
 

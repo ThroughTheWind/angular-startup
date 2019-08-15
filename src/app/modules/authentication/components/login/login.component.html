@@ -1,11 +1,11 @@
 <div>
   <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
       <div>
-          <label>Username</label>
-          <input type="text" formControlName="username" required/>
-          <div *ngIf="username.errors && (username.dirty || username.touched)">
-            <span *ngIf="username.errors.required">
-              Username is required.
+          <label>Email</label>
+          <input type="text" formControlName="email" required autofocus/>
+          <div *ngIf="email.errors && (email.dirty || email.touched)">
+            <span *ngIf="email.errors.required">
+              Email is required.
             </span>
           </div>
       </div>
@@ -28,10 +28,7 @@
 </div>
 <div>
     <p>Log in as "[{{ '{' }}
-            username: 'TestUser',
-            password: 'TestPwd'
-            {{ '}' }}, {{ '{' }}
-            username: 'TestUser2',
-            password: 'TestPwd2'
+            email: 'test@test.fr',
+            password: 'test123456'
             {{ '}' }}]"</p>
 </div>
