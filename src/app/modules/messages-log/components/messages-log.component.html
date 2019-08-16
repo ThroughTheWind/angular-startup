@@ -1,0 +1,28 @@
+<div class="messages-container">
+    <div class="messages-header">
+        Messages Logs
+    </div>
+    <div class="messages-filter">
+            <a (click)="getMessages()" routerLink="">All</a>
+            <a (click)="filterSuccess()" routerLink="">Success</a>
+            <a (click)="filterError()" routerLink="">Error</a>
+            <a (click)="filterWarning()" routerLink="">Warning</a>
+            <a (click)="filterInfo()" routerLink="">Info</a>
+            <a (click)="filterNeutral()" routerLink="">Neutral</a>
+    </div>
+    <div class="messages-list">
+        <div *ngFor="let message of messages | async" class="message-log"
+            [class.success]="message.type === MessageType.SUCCESS"
+            [class.error]="message.type === MessageType.ERROR"
+            [class.warning]="message.type === MessageType.WARNING"
+            [class.info]="message.type === MessageType.INFO"
+            [class.neutral]="message.type === MessageType.NEUTRAL">
+            <div>
+                <span>{{message.date | date :'short'}} | {{message.title}} </span>
+            </div>
+            <div>
+                <span>{{message.text}}</span>
+            </div>
+        </div>
+    </div>
+</div>

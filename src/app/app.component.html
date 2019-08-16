@@ -19,3 +19,12 @@
 </ul>
 
 <router-outlet></router-outlet>
+<div>
+  <button (click)="addSuccessMessage()">Add Success</button>
+  <button (click)="addErrorMessage()">Add Error</button>
+  <button (click)="addWarningMessage()">Add Warning</button>
+  <button (click)="addInfoMessage()">Add Info</button>
+  <button (click)="addNeutralMessage()">Add Neutral</button>
+  <button (click)="clearMessages()">Clean messages</button>
+</div>
+<app-messages-log></app-messages-log>
