@@ -20,6 +20,7 @@ export class ItemsEditComponent implements OnInit {
     description: ['', Validators.required],
   });
   item: Item;
+  apiError: string = null;
 
   get name() { return this.itemForm.get('name'); }
   get description() { return this.itemForm.get('description'); }
@@ -86,16 +87,14 @@ export class ItemsEditComponent implements OnInit {
   addItem() {
     const item = this.fetchItem();
     if (item) {
-      this.itemsService.addItem(item);
-      this.navigateToList();
+      this.itemsService.addItem(item).subscribe(() => this.navigateToList(), (err) => this.apiError = err);
     }
   }
 
   updateItem() {
     const item = this.fetchItem();
     if (item) {
-      this.itemsService.updateItem(item);
-      this.navigateToList();
+      this.itemsService.updateItem(item).subscribe(() => this.navigateToList(), (err) => this.apiError = err);
     }
   }
 

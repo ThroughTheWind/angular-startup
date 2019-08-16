@@ -4,9 +4,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ItemsRoutingModule } from './items-routing.module';
 
-import { ItemsComponent } from './items/items.component';
-import { ItemsEditComponent } from './items-edit/items-edit.component';
-import { ItemsListComponent } from './items-list/items-list.component';
+import { ItemsComponent } from './components/items.component';
+import { ItemsEditComponent } from './components/items-edit/items-edit.component';
+import { ItemsListComponent } from './components/items-list/items-list.component';
 import { ItemComponent } from './components/item/item.component';
 
 @NgModule({

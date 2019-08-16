@@ -17,7 +17,7 @@ export class ItemsListComponent implements OnInit {
   }
 
   delete(item: Item) {
-    this.itemsService.deleteItem(item);
+    this.itemsService.deleteItem(item).subscribe();
   }
 
   getItems() {

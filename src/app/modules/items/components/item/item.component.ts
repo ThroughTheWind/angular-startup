@@ -1,4 +1,4 @@
-import { Item } from './../../Item';
+import { Item } from '../../models/Item';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 

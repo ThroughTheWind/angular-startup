@@ -1,4 +1,4 @@
-import { Authentication } from '../authentication';
+import { Authentication } from '../models/authentication';
 import { Injectable } from '@angular/core';
 import { Observable, of, from } from 'rxjs';
 import { map } from 'rxjs/operators';

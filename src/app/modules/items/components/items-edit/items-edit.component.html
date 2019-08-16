@@ -20,6 +20,7 @@
         <div>
             <p>
                 Form Status: {{ itemForm.status }}
+                <span *ngIf="apiError"><br>{{apiError}}</span>
             </p>
             <button type="submit" [disabled]="!itemForm.valid">Submit</button>
         </div>
