@@ -1,0 +1,27 @@
+<h2 *ngIf="isCreateState()">Nouvel item !</h2>
+<h2 *ngIf="!isCreateState()">Update item !</h2>
+<div>
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label>Name</label>
+            <input formControlName="name" required>
+            <div *ngIf="name.errors && (name.touched || name.dirty)">
+                <span *ngIf="name.errors.required">Name is required</span>
+                <span *ngIf="name.errors.nameTaken">Name already exists</span>
+            </div>
+        </div>
+        <div>
+            <label>Description</label>
+            <input formControlName="description" required>
+            <div *ngIf="description.errors && (description.touched || description.dirty)">
+                <span *ngIf="description.errors.required">Description is required</span>
+            </div>
+        </div>
+        <div>
+            <p>
+                Form Status: {{ itemForm.status }}
+            </p>
+            <button type="submit" [disabled]="!itemForm.valid">Submit</button>
+        </div>
+    </form>
+</div>

@@ -10,6 +10,9 @@
   <li>
     <h2><a routerLink="/authentication">Authentification</a></h2>
   </li>
+  <li>
+    <h2><a routerLink="/items" routerLinkActive="active">Items</a></h2>
+  </li>
   <li *ngIf="isAuthenticated()">
     <h2><a routerLink="" (click)="logOut()">Se déconnecter</a></h2>
   </li>

@@ -21,7 +21,6 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
     return of(this.canGo());
   }
 
-
   canGo(): boolean {
     const loggedIn = this.authenticationService.isAuthenticated();
     if (!loggedIn) {
