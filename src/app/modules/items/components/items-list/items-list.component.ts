@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-import { ItemsService } from '../items.service';
-import { Item } from '../Item';
+import { ItemsService } from '../../services/items.service';
+import { Item } from '../../models/Item';
 
 @Component({
   selector: 'app-items-list',
