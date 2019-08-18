@@ -1,7 +1,7 @@
 export enum MessageType {
-    SUCCESS,
-    ERROR,
-    INFO,
-    WARNING,
-    NEUTRAL
+    SUCCESS = 'SUCCESS',
+    ERROR = 'ERROR',
+    INFO = 'INFO',
+    WARNING = 'WARNING',
+    NEUTRAL = 'NEUTRAL'
 }

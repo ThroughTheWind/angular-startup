@@ -1,8 +1,10 @@
 import { Subject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { MessagesLogService } from '../services/messages-log.service';
 import { MessageLog } from '../models/message-log';
 import { MessageType } from '../models/message-type';
+import { nextTick } from 'q';
 
 @Component({
   selector: 'app-messages-log',
@@ -12,7 +14,9 @@ import { MessageType } from '../models/message-type';
 export class MessagesLogComponent implements OnInit {
 
   localMessages: Observable<MessageLog[]>;
+  filterType$: Observable<MessageType>;
   MessageType = MessageType;
+  filteredType: MessageType = null;
   constructor(private messagesLogService: MessagesLogService) { }
 
   get messages() {
@@ -23,27 +27,35 @@ export class MessagesLogComponent implements OnInit {
     this.getMessages();
   }
 
-  getMessages(type: MessageType = null) {
-    this.localMessages = this.messagesLogService.getMessages();
+  getMessages() {
+    this.localMessages = this.messagesLogService.getMessages()
+      .pipe(
+        map(messages => this.filteredType ? messages.filter(message => message.type === this.filteredType) : messages)
+      );
   }
 
   filterSuccess() {
-    this.getMessages(MessageType.SUCCESS);
+    this.filteredType = MessageType.SUCCESS;
+    this.getMessages();
   }
 
   filterError() {
-    this.getMessages(MessageType.ERROR);
+    this.filteredType = MessageType.ERROR;
+    this.getMessages();
   }
 
   filterWarning() {
-    this.getMessages(MessageType.WARNING);
+    this.filteredType = MessageType.WARNING;
+    this.getMessages();
   }
 
   filterInfo() {
-    this.getMessages(MessageType.INFO);
+    this.filteredType = MessageType.INFO;
+    this.getMessages();
   }
 
   filterNeutral() {
-    this.getMessages(MessageType.NEUTRAL);
+    this.filteredType = MessageType.NEUTRAL;
+    this.getMessages();
   }
 }
