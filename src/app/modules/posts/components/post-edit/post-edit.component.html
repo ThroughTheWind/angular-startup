@@ -1,7 +1,7 @@
-<h2 *ngIf="isCreateState()">Nouvel item !</h2>
-<h2 *ngIf="!isCreateState()">Update item !</h2>
+<h2 *ngIf="isCreateState()">Nouvel post !</h2>
+<h2 *ngIf="!isCreateState()">Update post !</h2>
 <div>
-    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
         <div>
             <label>Name</label>
             <input formControlName="name" required>
@@ -19,10 +19,10 @@
         </div>
         <div>
             <p>
-                Form Status: {{ itemForm.status }}
+                Form Status: {{ postForm.status }}
                 <span *ngIf="apiError"><br>{{apiError}}</span>
             </p>
-            <button type="submit" [disabled]="!itemForm.valid">Submit</button>
+            <button type="submit" [disabled]="!postForm.valid">Submit</button>
         </div>
     </form>
 </div>

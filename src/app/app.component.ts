@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'statup-angular';
+  title = 'Startup-NgBlog';
   constructor(private authenticationService: AuthenticationService) {}
 
   isAuthenticated(): boolean {

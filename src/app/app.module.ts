@@ -10,7 +10,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
-import { ItemsModule } from './modules/items/items.module';
+import { PostsModule } from './modules/posts/posts.module';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
 
 
@@ -26,7 +26,7 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     AuthenticationModule,
-    ItemsModule
+    PostsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

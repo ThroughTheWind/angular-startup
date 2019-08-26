@@ -1,0 +1,117 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { map, first } from 'rxjs/operators';
+
+import { Post } from '../../models/Post';
+import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { PostsService } from '../../services/posts.service';
+import { EditState } from 'src/app/enum/edit-state';
+
+
+@Component({
+  selector: 'app-posts-edit',
+  templateUrl: './post-edit.component.html',
+  styleUrls: ['./post-edit.component.less']
+})
+export class PostsEditComponent implements OnInit {
+  state: EditState = EditState.CREATE;
+  postForm = this.fb.group({
+    name: ['', Validators.required, this.validateNameNotTaken.bind(this)],
+    description: ['', Validators.required],
+  });
+  post: Post;
+  apiError: string = null;
+
+  get name() { return this.postForm.get('name'); }
+  get description() { return this.postForm.get('description'); }
+
+  constructor(public postsService: PostsService, private router: Router, private route: ActivatedRoute, private location: Location,
+              private fb: FormBuilder) { }
+
+  isCreateState() {
+    return this.state === EditState.CREATE;
+  }
+
+  onSubmit() {
+    if (this.postForm.valid) {
+      switch (this.state) {
+        case EditState.CREATE:
+          this.addPost();
+          break;
+        case EditState.EDIT:
+          this.updatePost();
+          break;
+      }
+    }
+  }
+
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.state = EditState.EDIT;
+      this.getPost(id);
+    } else {
+      this.state = EditState.CREATE;
+      this.resetForm();
+    }
+  }
+
+  resetForm() {
+    this.postForm.patchValue({
+      name: '',
+      description: ''
+    });
+    this.post = {} as Post;
+  }
+
+  getPost(id) {
+    this.postsService.getPost(id).subscribe((post) => {
+      if (post) {
+        this.post = post;
+        this.postForm.patchValue({
+          name: post.name,
+          description: post.description
+        });
+      } else {
+        this.navigateToList();
+      }
+    });
+  }
+
+  fetchPost(): Post {
+    const post = this.postForm.valid ? this.postForm.value as Post : null;
+    if (post && !this.isCreateState()) { post.id = this.post.id; }
+    return post;
+  }
+
+  addPost() {
+    const post = this.fetchPost();
+    if (post) {
+      this.postsService.addPost(post).subscribe(() => this.navigateToList(), (err) => this.apiError = err);
+    }
+  }
+
+  updatePost() {
+    const post = this.fetchPost();
+    if (post) {
+      this.postsService.updatePost(post).subscribe(() => this.navigateToList(), (err) => this.apiError = err);
+    }
+  }
+
+  navigateToList() {
+    this.router.navigateByUrl('/posts/list');
+  }
+
+  validateNameNotTaken(control: AbstractControl) {
+    let id: string = null;
+    if (!this.isCreateState()) { id = this.post.id; }
+    return this.postsService.checkNameNotTaken(control.value, id)
+      .pipe(
+        map(res => res ? null : {nameTaken: true}),
+        first()
+      );
+  }
+
+}
+
