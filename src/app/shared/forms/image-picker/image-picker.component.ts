@@ -1,7 +1,7 @@
-import { ValidateImage } from './../../form.validators';
+import { ValidateImage } from '../form.validators';
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, Validators, AbstractControl, FormArray, FormGroup } from '@angular/forms';
-import { ValidateUrl } from '../../form.validators';
+import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
+import { ValidateUrl } from '../form.validators';
 
 @Component({
   selector: 'app-image-picker',

@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { AuthenticationService } from '../../services/authentication.service';
 import { Authentication } from '../../models/authentication';
-import { ValidateEmail } from '../../../../shared/form.validators';
+import { ValidateEmail } from '../../../../shared/forms/form.validators';
 
 
 @Component({
