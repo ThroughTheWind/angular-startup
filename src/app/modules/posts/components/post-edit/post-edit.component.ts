@@ -4,9 +4,10 @@ import { Location } from '@angular/common';
 import { map, first } from 'rxjs/operators';
 
 import { Post } from '../../models/Post';
-import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, Validators, AbstractControl, FormArray  } from '@angular/forms';
 import { PostsService } from '../../services/posts.service';
 import { EditState } from 'src/app/enum/edit-state';
+import { Image } from 'src/app/shared/models/Image';
 
 
 @Component({
@@ -19,12 +20,15 @@ export class PostsEditComponent implements OnInit {
   postForm = this.fb.group({
     name: ['', Validators.required, this.validateNameNotTaken.bind(this)],
     description: ['', Validators.required],
+    images: this.fb.array([])
   });
   post: Post;
   apiError: string = null;
 
   get name() { return this.postForm.get('name'); }
   get description() { return this.postForm.get('description'); }
+  get images() { return this.postForm.get('images'); }
+
 
   constructor(public postsService: PostsService, private router: Router, private route: ActivatedRoute, private location: Location,
               private fb: FormBuilder) { }
@@ -53,14 +57,14 @@ export class PostsEditComponent implements OnInit {
       this.getPost(id);
     } else {
       this.state = EditState.CREATE;
-      this.resetForm();
     }
   }
 
   resetForm() {
     this.postForm.patchValue({
       name: '',
-      description: ''
+      description: '',
+      images: this.fb.array([])
     });
     this.post = {} as Post;
   }
@@ -71,7 +75,8 @@ export class PostsEditComponent implements OnInit {
         this.post = post;
         this.postForm.patchValue({
           name: post.name,
-          description: post.description
+          description: post.description,
+          images: this.fb.array([])
         });
       } else {
         this.navigateToList();

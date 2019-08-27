@@ -1,0 +1,32 @@
+<div [formGroup]="parentForm">
+    <h3>Images</h3>
+    <div formArrayName="images" >
+        <div *ngFor="let image of images.controls; let i = index;" [formGroupName]="i" >
+            <app-image-picker-detail [image]="image.value" (delete)="removeImage(i)"></app-image-picker-detail>            
+        </div>
+    </div>
+    <div>
+        <form [formGroup]="imageForm" (ngSubmit)="onSubmit()">
+            <div>
+                <label for="title">Titre</label>
+                <input formControlName="title" name="title" id="title">
+            </div>
+            <div>
+                <label for="description">Description</label>
+                <input formControlName="description" name="description" id="description">
+            </div>
+            <div>
+                <label for="url">Url</label>
+                <input formControlName="url" name="url" id="url" required>
+                <div *ngIf="url.errors && (url.touched || url.dirty)">
+                    <span *ngIf="url.errors.required">Url is required</span>
+                    <span *ngIf="url.errors.validUrl">Url must be valid</span>
+                    <span *ngIf="url.errors.validImage">Url must link to an image</span>
+                </div>
+            </div>
+            <div>
+                <button type="submit" [disabled]="!imageForm.valid">Submit</button>
+            </div>
+        </form>                
+    </div>
+</div>

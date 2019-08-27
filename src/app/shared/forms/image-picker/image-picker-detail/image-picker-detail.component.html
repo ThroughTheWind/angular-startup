@@ -1,0 +1,8 @@
+<div>
+    <p *ngIf="image.title">Title: {{image.title}}</p>
+    <img [src]="image.url">
+    <p *ngIf="image.description">Description: {{image.description}}</p>
+    <br>
+    <button (click)="onDelete()">Remove</button>
+</div>
+
