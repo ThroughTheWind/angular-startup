@@ -5,11 +5,22 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './upload-form.component.html',
   styleUrls: ['./upload-form.component.less']
 })
-export class UploadFormComponent implements OnInit {
+export class UploadFormComponent {
 
-  constructor() { }
+  isHovering: boolean;
 
-  ngOnInit() {
+  files: File[] = [];
+  
+  constructor() {}
+
+  toggleHover(event: boolean) {
+    this.isHovering = event;
+  }
+
+  onDrop(files: FileList) {
+    for (let i = 0; i < files.length; i++) {
+      this.files.push(files.item(i));
+    }
   }
 
 }

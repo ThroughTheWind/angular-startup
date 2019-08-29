@@ -1,11 +1,13 @@
+import { AngularFireUploadTask } from '@angular/fire/storage';
+
 export class Upload {
-    $key: string;
     file: File;
     name: string;
-    url: string;
-    progress: number;
+    downloadUrl: string;
+    path: string;
     createdAt: Date = new Date();
-
+    task: AngularFireUploadTask;
+    state: string;
     constructor(file: File) {
       this.file = file;
     }
