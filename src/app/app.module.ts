@@ -1,5 +1,4 @@
 import { UploadModule } from './shared/upload/upload.module';
-import { FileUploadModule } from './shared/file-upload/file-upload.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -29,8 +28,7 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     AuthenticationModule,
     PostsModule,
-    UploadModule,
-    FileUploadModule
+    UploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,7 +3,6 @@ import { Upload } from './Upload';
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { finalize, filter } from 'rxjs/operators';
 
 const DEFAULT_PATH = 'files/';
 const DEFAULT_DB = 'files';
@@ -20,10 +19,10 @@ export class UploadService {
     runningUploads: Upload[],
     successfullUploads: Upload[],
     cancelledUploads: Upload[]
-  }
+  };
 
   constructor(private storage: AngularFireStorage, private db: AngularFirestore) {
-    this.dataStore = { 
+    this.dataStore = {
       runningUploads: [],
       successfullUploads: [],
       cancelledUploads: []
@@ -34,7 +33,7 @@ export class UploadService {
   }
 
   pushUpload(file: File, options: { path: string, db: string } = null): Upload | null {
-    if(file) {
+    if (file) {
       const targetPath = options ? options.path ? options.path : DEFAULT_PATH : DEFAULT_PATH;
       const path = `${targetPath}${Date.now()}_${file.name}`;
       // Reference to storage bucket
@@ -59,7 +58,7 @@ export class UploadService {
           this.db.collection(targetDb).add( { downloadUrl, path });
           upload.downloadUrl = downloadUrl;
           upload.state = snap.state;
-          this.uploadEnded(upload);
+          this.uploadSuccessfull(upload);
         })
         .catch(snap => {
           upload.state = snap.state;
@@ -72,7 +71,7 @@ export class UploadService {
 
   uploadEnded(upload: Upload) {
     const uploads = this.dataStore.runningUploads;
-    uploads.splice(uploads.indexOf(uploads.find(up => up.file === upload.file && up.createdAt === upload.createdAt)), 1)
+    uploads.splice(uploads.indexOf(uploads.find(up => up.file === upload.file && up.createdAt === upload.createdAt)), 1);
     this.dataStore.runningUploads = uploads.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
     this.runningUploads.next(Object.assign({}, this.dataStore).runningUploads);
   }
@@ -84,7 +83,7 @@ export class UploadService {
     this.cancelledUploads.next(Object.assign({}, this.dataStore).cancelledUploads);
   }
 
-  uploadSuccessful(upload: Upload) {
+  uploadSuccessfull(upload: Upload) {
     this.uploadEnded(upload);
     this.dataStore.successfullUploads.push(upload);
     this.dataStore.successfullUploads = this.dataStore.successfullUploads.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());

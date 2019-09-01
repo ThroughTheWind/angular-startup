@@ -1,0 +1,23 @@
+<h1>Uploads</h1>
+<div>
+    <h2>Upload files :</h2>
+    <app-uploader></app-uploader>
+</div>
+<div>
+    <h2>Running uploads</h2>
+    <div>
+        <app-upload-detail *ngFor="let running of runningUploads | async" [upload]="running"></app-upload-detail>
+    </div>
+</div>
+<div>
+    <h2>Successfull uploads</h2>
+    <div>
+        <app-upload-detail *ngFor="let success of successfullUploads | async" [upload]="success"></app-upload-detail>
+    </div>
+</div>
+<div>
+    <h2>Cancelled uploads</h2>
+    <div>
+        <app-upload-detail *ngFor="let cancelled of cancelledUploads | async" [upload]="cancelled"></app-upload-detail>
+    </div>
+</div>
