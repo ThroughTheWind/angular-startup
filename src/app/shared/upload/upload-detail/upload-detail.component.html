@@ -1,9 +1,9 @@
 <div class="card">
-    <p>{{upload.file.name}}</p>
+    <p>{{upload.name}}</p>
     <p>Size : {{upload.size | displayFileSize}}</p>
     <p>Extension : {{upload.extension}}</p>
-    <p>Launched on : {{upload.createdAt | date:'medium'}}</p>    
-    <div *ngIf="upload.state === UploadState.SUCCESS">     
+    <p>Launched on : {{upload.createdAt}}</p>    
+    <div *ngIf="upload.state === UploadState.SUCCESS">
         <p>Path : {{upload.path}}</p>
         <p *ngIf="upload.downloadUrl">Download Url : <a target="_blank" [href]="upload.downloadUrl">{{upload.downloadUrl}}</a></p>
         <div>

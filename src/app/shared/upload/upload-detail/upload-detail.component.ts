@@ -27,6 +27,7 @@ export class UploadDetailComponent implements OnInit {
       this.snapshot = this.upload.task.snapshotChanges();
       this.percentage = this.upload.task.percentageChanges();
     }    
+    console.log(this.upload);
   }
 
   isRunning(snapshot) {

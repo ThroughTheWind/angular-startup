@@ -6,6 +6,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { UploadState } from './upload-state';
 import { UploadDescription } from './UploadDescription';
 import { UploadOptions } from './UploadOptions';
+import { map } from 'rxjs/operators';
 
 const DEFAULT_PATH = 'files/';
 const DEFAULT_DB = 'files';
@@ -117,7 +118,14 @@ export class UploadService {
   }
 
   getSuccessfullUploads(): Observable<Upload[]> {
-    return this.successfullUploads.asObservable();
+    return this.db.collection<Upload>(DEFAULT_DB).valueChanges().pipe(
+      map(uploads => {
+        return uploads.map(upload => {
+          upload.state = UploadState.SUCCESS;
+          return upload;
+        });
+      })
+    );
   }
 
   getCancelledUploads(): Observable<Upload[]> {
