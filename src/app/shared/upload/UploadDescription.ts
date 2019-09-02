@@ -6,4 +6,5 @@ export interface UploadDescription {
     size: number;
     extension: string;
     id: string;
+    db: string;
 }

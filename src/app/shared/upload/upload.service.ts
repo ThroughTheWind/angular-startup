@@ -61,7 +61,7 @@ export class UploadService {
         .then(async snap => {
           upload.downloadUrl = await ref.getDownloadURL().toPromise();
           upload.state = UploadState.SUCCESS;
-          this.addToCollection(toUploadDescription(upload));
+          this.addToCollection(upload);
           this.uploadSuccessfull(upload);
         })
         .catch(() => {
@@ -71,6 +71,17 @@ export class UploadService {
       return upload;
     }
     return null;
+  }
+
+  deleteUpload(upload: UploadDescription) {
+    if(!upload) return false;
+    try {
+      this.storage.ref(upload.path).delete();
+      this.db.collection(upload.db).doc(upload.id).delete();
+    } catch(e) {
+      return false;
+    }
+    return true;
   }
 
   uploadEnded(upload: Upload) {
@@ -94,10 +105,11 @@ export class UploadService {
     this.successfullUploads.next(Object.assign({}, this.dataStore).successfullUploads);
   }
 
-  addToCollection(upload: UploadDescription, options: UploadOptions = null) {
+  addToCollection(upload: Upload, options: UploadOptions = null) {
     const targetDb = options ? options.db ? options.db : DEFAULT_DB : DEFAULT_DB;
+    upload.db = targetDb;
     upload.id = this.db.createId();
-    this.db.collection(targetDb).doc(upload.id).set(upload).then(() => {});
+    this.db.collection(targetDb).doc(upload.id).set(toUploadDescription(upload)).then(() => {});
   }
 
   getRunningUploads(): Observable<Upload[]> {

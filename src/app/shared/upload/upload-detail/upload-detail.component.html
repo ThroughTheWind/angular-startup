@@ -6,6 +6,9 @@
     <div *ngIf="upload.state === UploadState.SUCCESS">     
         <p>Path : {{upload.path}}</p>
         <p *ngIf="upload.downloadUrl">Download Url : <a target="_blank" [href]="upload.downloadUrl">{{upload.downloadUrl}}</a></p>
+        <div>
+            <button (click)="deleteUpload()">Delete</button>
+        </div>
     </div>
     <div *ngIf="upload.state === UploadState.RUNNING">
         <p>Path : {{upload.path}}</p>

@@ -14,6 +14,7 @@ export class Upload implements UploadDescription {
   task: AngularFireUploadTask;
   state: UploadState;
   id: string;
+  db: string;
   constructor(file: File) {
     this.file = file;
   }
@@ -27,6 +28,8 @@ export function toUploadDescription(upload: Upload) {
     downloadUrl: upload.downloadUrl,
     size: upload.size,
     extension: upload.extension,
-    createdAt: upload.createdAt
+    createdAt: upload.createdAt,
+    id: upload.id,
+    db: upload.db
   } as UploadDescription;
 }
