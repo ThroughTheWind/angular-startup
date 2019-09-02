@@ -1,5 +1,5 @@
 import { AngularFireUploadTask } from '@angular/fire/storage';
-import { UploadState } from './upload-state';
+import { UploadState } from '../enums/upload-state';
 import { UploadDescription } from './UploadDescription';
 
 export class Upload implements UploadDescription {

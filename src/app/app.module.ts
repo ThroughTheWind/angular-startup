@@ -1,4 +1,4 @@
-import { UploadModule } from './shared/upload/upload.module';
+import { UploadModule } from './modules/upload/upload.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 

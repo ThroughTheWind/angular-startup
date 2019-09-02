@@ -1,8 +1,8 @@
-import { UploadService } from './../upload.service';
-import { Upload } from './../Upload';
+import { UploadService } from '../../services/upload.service';
+import { Upload } from '../../models/Upload';
 import { Component, OnInit, EventEmitter, Output, HostListener, Input } from '@angular/core';
 import { AttachSession } from 'protractor/built/driverProviders';
-import { UploadOptions } from '../UploadOptions';
+import { UploadOptions } from '../../models/UploadOptions';
 
 @Component({
   selector: 'app-uploader',

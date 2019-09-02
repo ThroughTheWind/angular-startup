@@ -1,11 +1,11 @@
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Upload, toUploadDescription } from './Upload';
+import { Upload, toUploadDescription } from '../models/Upload';
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { UploadState } from './upload-state';
-import { UploadDescription } from './UploadDescription';
-import { UploadOptions } from './UploadOptions';
+import { UploadState } from '../enums/upload-state';
+import { UploadDescription } from '../models/UploadDescription';
+import { UploadOptions } from '../models/UploadOptions';
 import { map } from 'rxjs/operators';
 
 const DEFAULT_PATH = 'files/';

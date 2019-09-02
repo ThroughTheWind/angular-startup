@@ -12,10 +12,12 @@
     </li>
     <li>
         <h2><a routerLink="/posts" routerLinkActive="active">Posts</a></h2>
+    </li>    
+    <li *ngIf="isAuthenticated()">
+        <h2><a routerLink="/uploads" >Uploads</a></h2>
     </li>
     <li *ngIf="isAuthenticated()">
         <h2><a routerLink="" (click)="logOut()">Se déconnecter</a></h2>
     </li>
 </ul>
-<app-uploads></app-uploads>
 <router-outlet></router-outlet>

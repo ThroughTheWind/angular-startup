@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
-import { Upload, toUploadDescription } from './../Upload';
+import { Upload, toUploadDescription } from '../../models/Upload';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
-import { UploadState } from '../upload-state';
-import { UploadService } from '../upload.service';
-import { UploadDescription } from '../UploadDescription';
+import { UploadState } from '../../enums/upload-state';
+import { UploadService } from '../../services/upload.service';
+import { UploadDescription } from '../../models/UploadDescription';
 
 @Component({
   selector: 'app-upload-detail',
