@@ -1,8 +1,11 @@
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Upload } from './Upload';
+import { Upload, toUploadDescription } from './Upload';
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { UploadState } from './upload-state';
+import { UploadDescription } from './UploadDescription';
+import { UploadOptions } from './UploadOptions';
 
 const DEFAULT_PATH = 'files/';
 const DEFAULT_DB = 'files';
@@ -32,7 +35,7 @@ export class UploadService {
     this.cancelledUploads = new BehaviorSubject([]);
   }
 
-  pushUpload(file: File, options: { path: string, db: string } = null): Upload | null {
+  pushUpload(file: File, options: UploadOptions = null): Upload | null {
     if (file) {
       const targetPath = options ? options.path ? options.path : DEFAULT_PATH : DEFAULT_PATH;
       const path = `${targetPath}${Date.now()}_${file.name}`;
@@ -41,11 +44,14 @@ export class UploadService {
       // The main task
       const task = this.storage.upload(path, file);
       const upload = {
+        name: file.name,
         file,
         path,
         createdAt: new Date(),
         task,
-        state: 'running'
+        state: UploadState.RUNNING,
+        extension: file.name.split('.').pop(),
+        size: file.size,
       } as Upload;
 
       this.dataStore.runningUploads.push(upload);
@@ -53,15 +59,13 @@ export class UploadService {
       this.runningUploads.next(Object.assign({}, this.dataStore).runningUploads);
       task
         .then(async snap => {
-          const downloadUrl = await ref.getDownloadURL().toPromise();
-          const targetDb = options ? options.db ? options.db : DEFAULT_DB : DEFAULT_DB;
-          this.db.collection(targetDb).add( { downloadUrl, path });
-          upload.downloadUrl = downloadUrl;
-          upload.state = snap.state;
+          upload.downloadUrl = await ref.getDownloadURL().toPromise();
+          upload.state = UploadState.SUCCESS;
+          this.addToCollection(toUploadDescription(upload));
           this.uploadSuccessfull(upload);
         })
-        .catch(snap => {
-          upload.state = snap.state;
+        .catch(() => {
+          upload.state = UploadState.CANCELLED;
           this.uploadCancelled(upload);
         });
       return upload;
@@ -88,6 +92,12 @@ export class UploadService {
     this.dataStore.successfullUploads.push(upload);
     this.dataStore.successfullUploads = this.dataStore.successfullUploads.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
     this.successfullUploads.next(Object.assign({}, this.dataStore).successfullUploads);
+  }
+
+  addToCollection(upload: UploadDescription, options: UploadOptions = null) {
+    const targetDb = options ? options.db ? options.db : DEFAULT_DB : DEFAULT_DB;
+    upload.id = this.db.createId();
+    this.db.collection(targetDb).doc(upload.id).set(upload).then(() => {});
   }
 
   getRunningUploads(): Observable<Upload[]> {

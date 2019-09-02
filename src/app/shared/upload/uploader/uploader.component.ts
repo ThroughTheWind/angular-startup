@@ -2,6 +2,7 @@ import { UploadService } from './../upload.service';
 import { Upload } from './../Upload';
 import { Component, OnInit, EventEmitter, Output, HostListener, Input } from '@angular/core';
 import { AttachSession } from 'protractor/built/driverProviders';
+import { UploadOptions } from '../UploadOptions';
 
 @Component({
   selector: 'app-uploader',
@@ -52,13 +53,15 @@ export class UploaderComponent {
   }
 
   getPushOptions() {
-    if (!this.options) { return {
-      path: '',
-      db: ''
-    }; }
+    if (!this.options) { 
+      return {
+        path: '',
+        db: ''
+      } as UploadOptions; 
+    }
     return {
       path: this.options.path ? this.options.path : '',
       db: this.options.db ? this.options.db : ''
-    };
+    } as UploadOptions;
   }
 }

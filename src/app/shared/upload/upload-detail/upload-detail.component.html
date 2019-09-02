@@ -1,14 +1,25 @@
 <div class="card">
     <p>{{upload.file.name}}</p>
-    <p>State : {{upload.state}}</p>
-    <p>Path : {{upload.path}}</p>
-    <p *ngIf="upload.downloadUrl">Download Url : <a [href]="upload.downloadUrl">{{upload.downloadUrl}}</a></p>
-    <div *ngIf="snapshot | async as snap">
-        {{ snap.bytesTransferred }} of {{ snap.totalBytes }}
-        <div *ngIf="!isFinished(snap)">
+    <p>Size : {{upload.size | displayFileSize}}</p>
+    <p>Extension : {{upload.extension}}</p>
+    <p>Launched on : {{upload.createdAt | date:'medium'}}</p>    
+    <div *ngIf="upload.state === UploadState.SUCCESS">     
+        <p>Path : {{upload.path}}</p>
+        <p *ngIf="upload.downloadUrl">Download Url : <a target="_blank" [href]="upload.downloadUrl">{{upload.downloadUrl}}</a></p>
+    </div>
+    <div *ngIf="upload.state === UploadState.RUNNING">
+        <p>Path : {{upload.path}}</p>
+        <div *ngIf="snapshot | async as snap">            
+            <div *ngIf="percentage | async as pct">
+                <progress [value]="pct" max="100"></progress> {{ pct | number }}%
+            </div>
+            {{ snap.bytesTransferred | displayFileSize }} of {{ snap.totalBytes | displayFileSize }}
             <button (click)="upload.task.pause()" [disabled]="!isRunning(snap)">Pause</button>
             <button (click)="upload.task.cancel()" [disabled]="!isRunning(snap)">Cancel</button>
             <button (click)="upload.task.resume()" [disabled]="!(snap?.state === 'paused')">Resume</button>
         </div>
+    </div>
+    <div *ngIf="upload.state === UploadState.CANCELLED">
+        
     </div>
 </div>

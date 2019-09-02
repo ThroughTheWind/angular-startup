@@ -1,10 +1,10 @@
 <h1>Uploads</h1>
 <div>
-    <h2>Upload files :</h2>
+    <h2>File uploader :</h2>
     <app-uploader></app-uploader>
 </div>
 <div>
-    <h2>Running uploads</h2>
+    <h2>Running uploads <button *ngIf="(runningUploads | async)?.length > 0" (click)="uploadService.cancelRunning()">Cancel All</button></h2>
     <div>
         <app-upload-detail *ngFor="let running of runningUploads | async" [upload]="running"></app-upload-detail>
     </div>

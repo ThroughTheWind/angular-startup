@@ -2,6 +2,7 @@ import { Upload } from './../Upload';
 import { UploadService } from './../upload.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UploadState } from '../upload-state';
 
 @Component({
   selector: 'app-uploads',
@@ -20,6 +21,10 @@ export class UploadsComponent implements OnInit {
     this.runningUploads = this.uploadService.getRunningUploads();
     this.successfullUploads = this.uploadService.getSuccessfullUploads();
     this.cancelledUploads = this.uploadService.getCancelledUploads();
+  }
+
+  cancelRunnings() {
+    this.uploadService.cancelRunning();
   }
 
 }
