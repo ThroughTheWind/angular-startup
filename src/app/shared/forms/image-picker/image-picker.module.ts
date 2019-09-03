@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImagePickerComponent } from './image-picker.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UploadModule } from '../../../modules/upload/upload.module';
 
 
 
@@ -13,7 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UploadModule
   ],
   exports: [ImagePickerComponent]
 })

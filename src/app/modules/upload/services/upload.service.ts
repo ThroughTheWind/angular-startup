@@ -36,42 +36,44 @@ export class UploadService {
     this.cancelledUploads = new BehaviorSubject([]);
   }
 
-  pushUpload(file: File, options: UploadOptions = null): Upload | null {
-    if (file) {
-      const targetPath = options ? options.path ? options.path : DEFAULT_PATH : DEFAULT_PATH;
-      const path = `${targetPath}${Date.now()}_${file.name}`;
-      // Reference to storage bucket
-      const ref = this.storage.ref(path);
-      // The main task
-      const task = this.storage.upload(path, file);
-      const upload = {
-        name: file.name,
-        file,
-        path,
-        createdAt: new Date(),
-        task,
-        state: UploadState.RUNNING,
-        extension: file.name.split('.').pop(),
-        size: file.size,
-      } as Upload;
-
-      this.dataStore.runningUploads.push(upload);
-      this.dataStore.runningUploads = this.dataStore.runningUploads.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
-      this.runningUploads.next(Object.assign({}, this.dataStore).runningUploads);
-      task
-        .then(async snap => {
-          upload.downloadUrl = await ref.getDownloadURL().toPromise();
-          upload.state = UploadState.SUCCESS;
-          this.addToCollection(upload);
-          this.uploadSuccessfull(upload);
-        })
-        .catch(() => {
-          upload.state = UploadState.CANCELLED;
-          this.uploadCancelled(upload);
-        });
-      return upload;
-    }
-    return null;
+  pushUpload(file: File, options: UploadOptions = null): Observable<Upload | null> {
+    return new Observable(observer => {
+      if (file) {
+        const targetPath = options ? options.path ? options.path : DEFAULT_PATH : DEFAULT_PATH;
+        const path = `${targetPath}${Date.now()}_${file.name}`;
+        // Reference to storage bucket
+        const ref = this.storage.ref(path);
+        // The main task
+        const task = this.storage.upload(path, file);
+        const upload = {
+          name: file.name,
+          file,
+          path,
+          createdAt: new Date(),
+          task,
+          state: UploadState.RUNNING,
+          extension: file.name.split('.').pop(),
+          size: file.size,
+        } as Upload;
+  
+        this.dataStore.runningUploads.push(upload);
+        this.dataStore.runningUploads = this.dataStore.runningUploads.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+        this.runningUploads.next(Object.assign({}, this.dataStore).runningUploads);
+        task
+          .then(async snap => {
+            upload.downloadUrl = await ref.getDownloadURL().toPromise();
+            upload.state = UploadState.SUCCESS;
+            this.addToCollection(upload);
+            this.uploadSuccessfull(upload);
+            observer.next(upload);
+          })
+          .catch(() => {
+            upload.state = UploadState.CANCELLED;
+            this.uploadCancelled(upload);
+            observer.error(upload);
+          });
+      }
+    });    
   }
 
   deleteUpload(upload: UploadDescription) {

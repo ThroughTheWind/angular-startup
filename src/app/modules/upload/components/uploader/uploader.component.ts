@@ -11,7 +11,6 @@ import { UploadOptions } from '../../models/UploadOptions';
 })
 export class UploaderComponent {
   isHovering: boolean;
-  uploads: Upload[] = [];
   @Output() uploaded = new EventEmitter<Upload>();
   @Input() options: {
     accept: string,
@@ -33,13 +32,11 @@ export class UploaderComponent {
   emitFiles(files: FileList) {
     for (let i = 0; i < files.length; i++) {
       if (this.checkFileType(files.item(i))) {
-        const upload = this.uploadService.pushUpload(files.item(i), this.getPushOptions());
-        if (upload) {
-          this.uploads.push(upload);
-          upload.task.then(() => {
+        this.uploadService.pushUpload(files.item(i), this.getPushOptions()).subscribe(upload => {
+          if (upload) {
             this.uploaded.emit(upload);
-          });
-        }
+          }
+        });
       }
     }
   }

@@ -1,10 +1,28 @@
 <div [formGroup]="parentForm">
     <h3>Images</h3>
     <div formArrayName="images" >
-        <div *ngFor="let image of images.controls; let i = index;" [formGroupName]="i" >
-            <app-image-picker-detail [image]="image.value" (delete)="removeImage(i)"></app-image-picker-detail>            
+        <div *ngFor="let image of images.controls; let i = index;" >
+            <div [formGroupName]="i">
+                <div>
+                    <img [src]="image.value.url">
+                </div>
+                <div>
+                    <label for="title">Titre</label>
+                    <input formControlName="title" name="title" id="title">
+                </div>
+                <div>
+                    <label for="description">Description</label>
+                    <input formControlName="description" name="description" id="description">
+                </div>
+                <button (click)="removeImage(i)">Remove</button>
+            </div>
+            <!--
+            <app-image-picker-detail [image]="image.value" (delete)="removeImage(i)"></app-image-picker-detail>        
+            -->    
         </div>
     </div>
+    <app-uploader (uploaded)="onUpload($event)"></app-uploader>
+    <!--
     <div>
         <form [formGroup]="imageForm" (ngSubmit)="onSubmit()">
             <div>
@@ -29,4 +47,5 @@
             </div>
         </form>                
     </div>
+-->
 </div>
