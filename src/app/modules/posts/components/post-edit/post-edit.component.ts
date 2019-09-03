@@ -38,6 +38,7 @@ export class PostsEditComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.postForm);
     if (this.postForm.valid) {
       switch (this.state) {
         case EditState.CREATE:

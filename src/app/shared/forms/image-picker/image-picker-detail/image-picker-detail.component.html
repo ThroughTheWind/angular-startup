@@ -1,8 +1,14 @@
-<div>
-    <p *ngIf="image.title">Title: {{image.title}}</p>
-    <img [src]="image.url">
-    <p *ngIf="image.description">Description: {{image.description}}</p>
-    <br>
+<div [formGroup]="group">
+        <div>
+            <img [src]="group.value.url">
+        </div>
+        <div>
+            <label for="title">Titre</label>
+            <input formControlName="title" name="title" id="title">
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <input formControlName="description" name="description" id="description">
+        </div>
     <button (click)="onDelete()">Remove</button>
 </div>
-

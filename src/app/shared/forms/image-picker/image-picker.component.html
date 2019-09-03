@@ -2,6 +2,7 @@
     <h3>Images</h3>
     <div formArrayName="images" >
         <div *ngFor="let image of images.controls; let i = index;" >
+            <!--
             <div [formGroupName]="i">
                 <div>
                     <img [src]="image.value.url">
@@ -16,9 +17,8 @@
                 </div>
                 <button (click)="removeImage(i)">Remove</button>
             </div>
-            <!--
-            <app-image-picker-detail [image]="image.value" (delete)="removeImage(i)"></app-image-picker-detail>        
-            -->    
+        -->
+            <app-image-picker-detail [group]="image" [index]="i" (delete)="removeImage(i)"></app-image-picker-detail>
         </div>
     </div>
     <app-uploader (uploaded)="onUpload($event)"></app-uploader>

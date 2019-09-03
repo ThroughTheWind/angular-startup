@@ -1,5 +1,6 @@
 import { Image } from 'src/app/shared/models/Image';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-image-picker-detail',
@@ -8,7 +9,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ImagePickerDetailComponent implements OnInit {
 
-  @Input() image: Image;
+  @Input() group: FormGroup;
+  @Input() index: number;
   @Output() delete = new EventEmitter();
   constructor() { }
 

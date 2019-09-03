@@ -50,6 +50,7 @@ export class ImagePickerComponent implements OnInit {
       description: ['']
     }));
     console.log(images);
+    console.log(this.parentForm);
   }
 
 }
