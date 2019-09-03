@@ -17,22 +17,18 @@ const DEFAULT_DB = 'files';
 export class UploadService {
 
   runningUploads: BehaviorSubject<Upload[]>;
-  successfullUploads: BehaviorSubject<Upload[]>;
   cancelledUploads: BehaviorSubject<Upload[]>;
   dataStore: {
     runningUploads: Upload[],
-    successfullUploads: Upload[],
     cancelledUploads: Upload[]
   };
 
   constructor(private storage: AngularFireStorage, private db: AngularFirestore) {
     this.dataStore = {
       runningUploads: [],
-      successfullUploads: [],
       cancelledUploads: []
     };
     this.runningUploads = new BehaviorSubject([]);
-    this.successfullUploads = new BehaviorSubject([]);
     this.cancelledUploads = new BehaviorSubject([]);
   }
 
@@ -64,7 +60,7 @@ export class UploadService {
             upload.downloadUrl = await ref.getDownloadURL().toPromise();
             upload.state = UploadState.SUCCESS;
             this.addToCollection(upload);
-            this.uploadSuccessfull(upload);
+            this.uploadEnded(upload);
             observer.next(upload);
           })
           .catch(() => {
@@ -99,13 +95,6 @@ export class UploadService {
     this.dataStore.cancelledUploads.push(upload);
     this.dataStore.cancelledUploads = this.dataStore.cancelledUploads.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
     this.cancelledUploads.next(Object.assign({}, this.dataStore).cancelledUploads);
-  }
-
-  uploadSuccessfull(upload: Upload) {
-    this.uploadEnded(upload);
-    this.dataStore.successfullUploads.push(upload);
-    this.dataStore.successfullUploads = this.dataStore.successfullUploads.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
-    this.successfullUploads.next(Object.assign({}, this.dataStore).successfullUploads);
   }
 
   addToCollection(upload: Upload, options: UploadOptions = null) {
