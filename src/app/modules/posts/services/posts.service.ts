@@ -15,6 +15,7 @@ export class PostsService {
     this.postsCollection = db.collection<Post>('posts');
   }
 
+
   getPosts(): Observable<Post[]> {
     return this.db.collection<Post>('posts').valueChanges();
   }

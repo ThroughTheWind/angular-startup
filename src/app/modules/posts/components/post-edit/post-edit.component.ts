@@ -6,7 +6,7 @@ import { map, first } from 'rxjs/operators';
 import { Post } from '../../models/Post';
 import { FormBuilder, Validators, AbstractControl, FormArray  } from '@angular/forms';
 import { PostsService } from '../../services/posts.service';
-import { EditState } from 'src/app/enum/edit-state';
+import { EditState } from '../../enum/edit-state';
 import { Image } from 'src/app/shared/models/Image';
 
 
@@ -30,7 +30,7 @@ export class PostsEditComponent implements OnInit {
   get images() { return this.postForm.get('images'); }
 
 
-  constructor(public postsService: PostsService, private router: Router, private route: ActivatedRoute, private location: Location,
+  constructor(public postsService: PostsService, private router: Router, private route: ActivatedRoute,
               private fb: FormBuilder) { }
 
   isCreateState() {
@@ -77,7 +77,7 @@ export class PostsEditComponent implements OnInit {
         this.postForm.patchValue({
           name: post.name,
           description: post.description,
-          images: this.fb.array([])
+          images: post.images
         });
       } else {
         this.navigateToList();
