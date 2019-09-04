@@ -11,6 +11,7 @@ import { UploadOptions } from '../../models/UploadOptions';
 })
 export class UploaderComponent {
   isHovering: boolean;
+  loading: number = 0;
   @Output() uploaded = new EventEmitter<Upload>();
   @Input() options: {
     accept: string,
@@ -18,6 +19,9 @@ export class UploaderComponent {
     db: string
   };
 
+  get isLoading(): boolean {
+    return this.loading > 0;
+  }
   get accept() {
     return this.options ? this.options.accept : '';
   }
@@ -32,8 +36,10 @@ export class UploaderComponent {
   emitFiles(files: FileList) {
     for (let i = 0; i < files.length; i++) {
       if (this.checkFileType(files.item(i))) {
+        this.loading++;
         this.uploadService.pushUpload(files.item(i), this.getPushOptions()).subscribe(upload => {
           if (upload) {
+            this.loading--;
             this.uploaded.emit(upload);
           }
         });
