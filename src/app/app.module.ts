@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 import { PostsModule } from './modules/posts/posts.module';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
@@ -35,7 +36,8 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
     PostsModule,
     UploadModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

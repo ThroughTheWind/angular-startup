@@ -35,8 +35,8 @@ export class ImagePickerComponent implements OnInit {
   }
 
   loadImages(images: Image[]) {
-    const imagesArray = this.parentForm.controls['images'] as FormArray;
-    for(let image of images) {
+    const imagesArray = this.parentForm.controls.images as FormArray;
+    for (const image of images) {
       imagesArray.push(this.fb.group({
         url: image.url,
         title: image.title,
