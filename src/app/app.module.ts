@@ -12,6 +12,9 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+
 import { PostsModule } from './modules/posts/posts.module';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
 
@@ -30,7 +33,9 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     AuthenticationModule,
     PostsModule,
-    UploadModule
+    UploadModule,
+    MatToolbarModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

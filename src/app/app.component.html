@@ -1,20 +1,24 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<h1>App Links: </h1>
-<ul>
-    <li>
-        <h2><a routerLink="/authentication">Authentification</a></h2>
-    </li>
-    <li>
-        <h2><a routerLink="/posts" routerLinkActive="active">Posts</a></h2>
-    </li>
-    <ng-container *ngIf="isAuthenticated()">
-        <li>
-            <h2><a routerLink="/uploads" >Uploads</a></h2>
-        </li>
-        <li>
-            <h2><a routerLink="" (click)="logOut()">Se déconnecter</a></h2>
-        </li>
-    </ng-container>
-</ul>
-
-<router-outlet></router-outlet>
+<div class="root">
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <span class="headline">{{title}}</span>
+            <span class="fill-remaining-space"></span>
+            <ng-container *ngIf="isAuthenticated()">
+                <button mat-raised-button color="accent" (click)="logOut()">Log Out</button>
+            </ng-container>
+            <ng-container *ngIf="!isAuthenticated()">
+                <a mat-raised-button color="accent" routerLink="/authentication/login">Log In</a>
+            </ng-container>
+        </mat-toolbar-row>
+        <mat-toolbar-row>
+            <span class="fill-remaining-space"></span>        
+            <a mat-button routerLink="/">Home</a>
+            <a mat-button routerLink="/posts">Posts</a>
+            <a mat-button routerLink="/uploads">Uploads</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</div>
