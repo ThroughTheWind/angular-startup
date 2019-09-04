@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { map, first } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { FormBuilder, Validators, AbstractControl, FormArray  } from '@angular/f
 import { PostsService } from '../../services/posts.service';
 import { EditState } from '../../enum/edit-state';
 import { Image } from 'src/app/shared/models/Image';
+import { ImagePickerComponent } from '../../../../shared/forms/image-picker/image-picker.component';
 
 
 @Component({
@@ -24,6 +25,9 @@ export class PostsEditComponent implements OnInit {
   });
   post: Post;
   apiError: string = null;
+
+  @ViewChild(ImagePickerComponent, {static: false})
+  imagePicker: ImagePickerComponent;
 
   get name() { return this.postForm.get('name'); }
   get description() { return this.postForm.get('description'); }
@@ -77,8 +81,9 @@ export class PostsEditComponent implements OnInit {
         this.postForm.patchValue({
           name: post.name,
           description: post.description,
-          images: post.images
+          images: []
         });
+        this.imagePicker.loadImages(post.images);     
       } else {
         this.navigateToList();
       }

@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { ValidateUrl } from '../form.validators';
 import { Upload } from '../../../modules/upload/models/Upload';
+import { Image } from '../../models/Image';
 
 @Component({
   selector: 'app-image-picker',
@@ -10,16 +11,9 @@ import { Upload } from '../../../modules/upload/models/Upload';
   styleUrls: ['./image-picker.component.less']
 })
 export class ImagePickerComponent implements OnInit {
-
-  imageForm = this.fb.group({
-    title: [''],
-    description: [''],
-    url: ['', [Validators.required, ValidateUrl, ValidateImage]]
-  });
   @Input() parentForm: FormGroup;
 
   get images() { return this.parentForm.get('images'); }
-  get url() { return this.imageForm.get('url'); }
 
   constructor(private fb: FormBuilder) { }
 
@@ -31,26 +25,23 @@ export class ImagePickerComponent implements OnInit {
     images.removeAt(index);
   }
 
-  onSubmit() {
-    const images = this.parentForm.get('images') as FormArray;
-    images.push(this.fb.group(this.imageForm.value));
-    this.imageForm.reset({
-      title: '',
-      description: '',
-      url: ''
-    });
-  }
-
   onUpload(upload: Upload) {
-    console.log(upload);
     const images = this.parentForm.get('images') as FormArray;
     images.push(this.fb.group({
       title: [''],
       url: [upload.downloadUrl],
       description: ['']
     }));
-    console.log(images);
-    console.log(this.parentForm);
   }
 
+  loadImages(images: Image[]) {
+    const imagesArray = this.parentForm.controls['images'] as FormArray;
+    for(let image of images) {
+      imagesArray.push(this.fb.group({
+        url: image.url,
+        title: image.title,
+        description: image.description
+      }));
+    }
+  }
 }

@@ -17,7 +17,7 @@
                 <span *ngIf="description.errors.required">Description is required</span>
             </div>
         </div>
-        <app-image-picker [parentForm]="postForm"></app-image-picker>
+        <app-image-picker [parentForm]="postForm" #imagePicker></app-image-picker>
         <div>
             <p>
                 Form Status: {{ postForm.status }}
