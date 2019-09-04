@@ -21,7 +21,7 @@ export class PostsEditComponent implements OnInit {
   postForm = this.fb.group({
     name: ['', Validators.required, this.validateNameNotTaken.bind(this)],
     description: ['', Validators.required],
-    images: this.fb.array([])
+    images: this.fb.array([], Validators.required)
   });
   post: Post;
   apiError: string = null;
