@@ -20,7 +20,7 @@ const routes: Routes = [
         children: [
           { path: 'login', component: LoginComponent, canActivate: [AnonymousGuard] },
           { path: 'guarded', component: GuardedComponent, canActivate: [AuthenticationGuard] },
-          { path: '402', component: UnauthorizedComponent }
+          { path: '401', component: UnauthorizedComponent }
         ]
       }
     ]

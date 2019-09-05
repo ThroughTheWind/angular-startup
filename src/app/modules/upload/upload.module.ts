@@ -6,6 +6,10 @@ import { UploadsComponent } from './components/uploads/uploads.component';
 import { UploadDetailComponent } from './components/upload-detail/upload-detail.component';
 import { DisplayFileSizePipe } from './pipes/display-file-size.pipe';
 import { UploadRoutingModule } from './upload-routing.module';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -17,7 +21,11 @@ import { UploadRoutingModule } from './upload-routing.module';
   ],
   imports: [
     CommonModule,
-    UploadRoutingModule
+    UploadRoutingModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatProgressBarModule
   ],
   exports: [
     UploaderComponent,

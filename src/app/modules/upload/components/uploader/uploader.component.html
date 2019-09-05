@@ -1,5 +1,10 @@
-<div class="dropzone" appDropZone (hovered)="toggleHover($event)" (dropped)="emitFiles($event)" [class.hovering]="isHovering">
-    <h3>AngularFire Drop Zone</h3>
-    <p>Drag and Drop a File</p>
-    <input type="file" [accept]="accept">
-</div>
+<mat-card class="dropzone" appDropZone (hovered)="toggleHover($event)" (dropped)="emitFiles($event)" [class.hovering]="isHovering">
+    <h3 class="mat-h2">Upload Files</h3>
+    <p class="mat-h3">Drag and Drop a File to upload it on the server</p>
+    <div>
+        <mat-icon>cloud_upload</mat-icon>
+    </div>
+    <input type="file" [accept]="accept" hidden #fileInput>
+    <button mat-raised-button color="primary" (click)="fileInput.click()">OR SELECT A FILE</button>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+</mat-card>

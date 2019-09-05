@@ -1,23 +1,25 @@
-<h1>Uploads</h1>
-<div>
-    <h2>File uploader :</h2>
-    <app-uploader></app-uploader>
-</div>
-<div>
-    <h2>Running uploads <button *ngIf="(runningUploads | async)?.length > 0" (click)="uploadService.cancelRunning()">Cancel All</button></h2>
+<div class="container">
+    <h1 class="mat-display-1">Uploads</h1>
     <div>
-        <app-upload-detail *ngFor="let running of runningUploads | async" [upload]="running"></app-upload-detail>
+        <h2 class="mat-h2">File uploader</h2>
+        <app-uploader></app-uploader>
     </div>
-</div>
-<div>
-    <h2>Successfull uploads</h2>
     <div>
-        <app-upload-detail *ngFor="let success of successfullUploads | async" [upload]="success"></app-upload-detail>
+        <h2>Running uploads <button *ngIf="(runningUploads | async)?.length > 0" (click)="uploadService.cancelRunning()">Cancel All</button></h2>
+        <div>
+            <app-upload-detail *ngFor="let running of runningUploads | async" [upload]="running"></app-upload-detail>
+        </div>
     </div>
-</div>
-<div>
-    <h2>Cancelled uploads</h2>
     <div>
-        <app-upload-detail *ngFor="let cancelled of cancelledUploads | async" [upload]="cancelled"></app-upload-detail>
+        <h2>Successfull uploads</h2>
+        <div>
+            <app-upload-detail *ngFor="let success of successfullUploads | async" [upload]="success"></app-upload-detail>
+        </div>
+    </div>
+    <div>
+        <h2>Cancelled uploads</h2>
+        <div>
+            <app-upload-detail *ngFor="let cancelled of cancelledUploads | async" [upload]="cancelled"></app-upload-detail>
+        </div>
     </div>
 </div>
