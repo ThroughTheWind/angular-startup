@@ -1,25 +1,24 @@
 <div class="container">
-    <h1 class="mat-display-1">Uploads</h1>
-    <div>
-        <h2 class="mat-h2">File uploader</h2>
-        <app-uploader></app-uploader>
-    </div>
-    <div>
-        <h2>Running uploads <button *ngIf="(runningUploads | async)?.length > 0" (click)="uploadService.cancelRunning()">Cancel All</button></h2>
-        <div>
-            <app-upload-detail *ngFor="let running of runningUploads | async" [upload]="running"></app-upload-detail>
-        </div>
-    </div>
-    <div>
-        <h2>Successfull uploads</h2>
-        <div>
-            <app-upload-detail *ngFor="let success of successfullUploads | async" [upload]="success"></app-upload-detail>
-        </div>
-    </div>
-    <div>
-        <h2>Cancelled uploads</h2>
-        <div>
-            <app-upload-detail *ngFor="let cancelled of cancelledUploads | async" [upload]="cancelled"></app-upload-detail>
-        </div>
-    </div>
+    <h1 class="mat-h1">Uploads</h1>
+    <app-uploader></app-uploader>
+    <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Running">
+            <h2 class="mat-h2">Running uploads <button *ngIf="(runningUploads | async)?.length > 0" (click)="uploadService.cancelRunning()">Cancel All</button></h2>
+            <div>
+                <app-upload-detail *ngFor="let running of runningUploads | async" [upload]="running"></app-upload-detail>
+            </div>
+        </mat-tab>
+        <mat-tab label="Successfull">
+                <h2 class="mat-h2">Successfull uploads</h2>                    
+                <div>
+                    <app-upload-detail *ngFor="let success of successfullUploads | async" [upload]="success"></app-upload-detail>
+                </div>
+        </mat-tab>
+        <mat-tab label="Cancelled">
+            <h2 class="mat-h2">Cancelled uploads</h2>
+            <div>
+                <app-upload-detail *ngFor="let cancelled of cancelledUploads | async" [upload]="cancelled"></app-upload-detail>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
 </div>
