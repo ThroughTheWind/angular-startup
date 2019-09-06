@@ -15,6 +15,7 @@ const routes: Routes =  [
       {
         path: '',
         children: [
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
           { path: 'list', component: PostsListComponent },
           { path: 'create', component: PostsEditComponent, canActivate: [AuthenticationGuard] },
           { path: 'edit/:id', component: PostsEditComponent, canActivate: [AuthenticationGuard] }

@@ -42,7 +42,7 @@ export class UploaderComponent {
             this.loading--;
             this.uploaded.emit(upload);
           }
-        });
+        }, () => this.loading--);
       }
     }
   }
