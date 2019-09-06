@@ -9,10 +9,15 @@
             </div>
         </mat-tab>
         <mat-tab label="Successfull">
-                <h2 class="mat-h2">Successfull uploads</h2>                    
-                <div>
-                    <app-upload-detail *ngFor="let success of successfullUploads | async" [upload]="success"></app-upload-detail>
-                </div>
+            <h2 class="mat-h2">Successfull uploads</h2>
+            <mat-grid-list cols="4" rowHeight="1:1">
+                <mat-grid-tile *ngFor="let success of successfullUploads | async">
+                    <app-upload-detail [upload]="success"></app-upload-detail>
+                </mat-grid-tile>
+            </mat-grid-list>        
+            <div>
+                
+            </div>
         </mat-tab>
         <mat-tab label="Cancelled">
             <h2 class="mat-h2">Cancelled uploads</h2>
