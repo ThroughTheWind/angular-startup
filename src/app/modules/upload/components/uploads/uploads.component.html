@@ -3,27 +3,29 @@
     <app-uploader></app-uploader>
     <mat-tab-group mat-align-tabs="center">
         <mat-tab label="Running">
-            <h2 class="mat-h2">Running uploads <button *ngIf="(runningUploads | async)?.length > 0" (click)="uploadService.cancelRunning()">Cancel All</button></h2>
-            <div>
-                <app-upload-detail *ngFor="let running of runningUploads | async" [upload]="running"></app-upload-detail>
-            </div>
+            <h2 class="mat-h2">Running uploads <button mat-button color="warn" *ngIf="(runningUploads | async)?.length > 0" (click)="uploadService.cancelRunning()">Cancel All</button></h2>
+            <mat-grid-list cols="3" rowHeight="10:7">
+                <mat-grid-tile *ngFor="let running of runningUploads | async">
+                    <app-upload-detail [upload]="running"></app-upload-detail>
+                </mat-grid-tile>
+            </mat-grid-list>
         </mat-tab>
         <mat-tab label="Successfull">
-            <h2 class="mat-h2">Successfull uploads</h2>
-            <mat-grid-list cols="4" rowHeight="1:1">
+            <h2 class="mat-h2">Successfull uploads</h2> 
+            <app-upload-filter (filtered)="onFiltered($event)"></app-upload-filter>           
+            <mat-grid-list cols="4" rowHeight="4:3">
                 <mat-grid-tile *ngFor="let success of successfullUploads | async">
                     <app-upload-detail [upload]="success"></app-upload-detail>
                 </mat-grid-tile>
-            </mat-grid-list>        
-            <div>
-                
-            </div>
+            </mat-grid-list>
         </mat-tab>
         <mat-tab label="Cancelled">
             <h2 class="mat-h2">Cancelled uploads</h2>
-            <div>
-                <app-upload-detail *ngFor="let cancelled of cancelledUploads | async" [upload]="cancelled"></app-upload-detail>
-            </div>
+            <mat-grid-list cols="4" rowHeight="2:1">
+                <mat-grid-tile *ngFor="let cancelled of cancelledUploads | async">
+                    <app-upload-detail [upload]="cancelled"></app-upload-detail>
+                </mat-grid-tile>
+            </mat-grid-list>
         </mat-tab>
     </mat-tab-group>
 </div>

@@ -48,7 +48,7 @@ export class UploadService {
           createdAt: new Date(),
           task,
           state: UploadState.RUNNING,
-          extension: file.name.split('.').pop(),
+          extension: file.name.indexOf('.') > 0 ? file.name.split('.').pop() : '',
           size: file.size,
         } as Upload;
   
@@ -113,8 +113,17 @@ export class UploadService {
       map(uploads => {
         return uploads.map(upload => {
           upload.state = UploadState.SUCCESS;
+          upload.createdAt = new Date(upload.createdAt['seconds'] * 1000);
           return upload;
         });
+      })
+    );
+  }
+
+  getDistinctUploadExtensions(): Observable<string[]> {
+    return this.db.collection<Upload>(DEFAULT_DB).valueChanges().pipe(
+      map(uploads => {
+        return Array.from(new Set(uploads.map(upload => upload.extension))).sort();
       })
     );
   }

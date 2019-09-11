@@ -17,6 +17,7 @@ export class UploadDetailComponent implements OnInit {
   @Output() deleted = new EventEmitter<UploadDescription>();
   snapshot: Observable<UploadTaskSnapshot>;
   percentage: Observable<number>;
+  color: string;
 
   get UploadState() { return UploadState; }
 
@@ -26,7 +27,21 @@ export class UploadDetailComponent implements OnInit {
     if(this.upload.state === UploadState.RUNNING) {
       this.snapshot = this.upload.task.snapshotChanges();
       this.percentage = this.upload.task.percentageChanges();
-    }    
+    }
+    switch(this.upload.state) {
+      case UploadState.RUNNING:
+        this.snapshot = this.upload.task.snapshotChanges();
+        this.percentage = this.upload.task.percentageChanges();
+        this.color='accent';
+        break;
+      case UploadState.SUCCESS:
+        this.color='primary';
+        break;
+      case UploadState.CANCELLED:        
+        this.color='warn';
+        break;
+
+    }
     console.log(this.upload);
   }
 
