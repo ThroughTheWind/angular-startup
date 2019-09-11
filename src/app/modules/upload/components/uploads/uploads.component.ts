@@ -13,7 +13,7 @@ import { UploadSortType } from '../../enums/upload-sort-type';
   styleUrls: ['./uploads.component.less']
 })
 export class UploadsComponent implements OnInit {
-
+  uploadTotal = -1;
   runningUploads: Observable<Upload[]>;
   successfullUploads: Observable<Upload[]>;
   cancelledUploads: Observable<Upload[]>;
@@ -23,9 +23,7 @@ export class UploadsComponent implements OnInit {
 
   ngOnInit() {
     this.runningUploads = this.uploadService.getRunningUploads();
-    this.successfullUploads = this.uploadService.getSuccessfullUploads().pipe(
-      map(this.filterUploads)
-    );
+    this.loadSuccessfulUploads();
     this.cancelledUploads = this.uploadService.getCancelledUploads();
   }
 
@@ -34,11 +32,17 @@ export class UploadsComponent implements OnInit {
   }
 
   onFiltered(filters: UploadFilters) {
-    console.log(filters);
     this.filters = filters;
+    this.loadSuccessfulUploads();
   }
 
-  filterUploads(uploads: Upload[], index: number) : Upload[] {
+  loadSuccessfulUploads() {
+    this.successfullUploads = this.uploadService.getSuccessfullUploads().pipe(
+      map(uploads => this.filterUploads(uploads))
+    );
+  }
+
+  filterUploads(uploads: Upload[]) : Upload[] {
     if(this.filters) {
       if(this.filters.name) {
         uploads = uploads.filter(up => RegExp(this.filters.name).test(up.name));
@@ -64,7 +68,6 @@ export class UploadsComponent implements OnInit {
             uploads = uploads.sort((a, b) => {return a.extension > b.extension ? -1 : 1})
             break;
         }
-        uploads = uploads.sort()
       }
     }
     return uploads;

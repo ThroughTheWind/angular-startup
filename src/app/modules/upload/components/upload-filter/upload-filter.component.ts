@@ -33,9 +33,7 @@ export class UploadFilterComponent implements OnInit {
 
   availableExtensions: Observable<string[]>;
   sortingTypes = Object.values(UploadSortType);
-
-
-
+  
   constructor(private fb: FormBuilder, private uploadService: UploadService) { }
 
   ngOnInit() {

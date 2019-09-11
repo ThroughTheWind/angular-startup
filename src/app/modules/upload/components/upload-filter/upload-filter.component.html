@@ -37,11 +37,11 @@
             <mat-label>Sorting type</mat-label>
             <mat-select formControlName="sortType">
                 <mat-option>None</mat-option>
-                <mat-option *ngFor="let sortType of sortingTypes.values()" [value]="sortType">{{sortType}}</mat-option>
+                <mat-option *ngFor="let sortType of sortingTypes" [value]="sortType">{{sortType}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-action-row>
-            <button type="reset" mat-button><mat-icon>clear</mat-icon> RESET</button>
+            <button type="reset" mat-button (click)="onSubmit()"><mat-icon>clear</mat-icon> RESET</button>
             <button type="submit" color="primary" mat-button><mat-icon>search</mat-icon> SEARCH</button>
         </mat-action-row>
     </form>

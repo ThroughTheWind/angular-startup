@@ -13,7 +13,7 @@
         <mat-tab label="Successfull">
             <h2 class="mat-h2">Successfull uploads</h2> 
             <app-upload-filter (filtered)="onFiltered($event)"></app-upload-filter>           
-            <mat-grid-list cols="4" rowHeight="4:3">
+            <mat-grid-list cols="4" rowHeight="4:3" [@filterAnimation]="uploadTotal">
                 <mat-grid-tile *ngFor="let success of successfullUploads | async">
                     <app-upload-detail [upload]="success"></app-upload-detail>
                 </mat-grid-tile>
