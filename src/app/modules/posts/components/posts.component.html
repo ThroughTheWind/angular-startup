@@ -1,6 +1,4 @@
-<h2>Posts</h2>
-<nav>
-    <a routerLink="./list" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">List</a>
-    <a routerLink="./create" routerLinkActive="active">Create</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="container">
+    <h1 class="mat-h1">Posts <a mat-button routerLink="create"><mat-icon>add</mat-icon> CREATE</a></h1>    
+    <router-outlet></router-outlet>
+</div>

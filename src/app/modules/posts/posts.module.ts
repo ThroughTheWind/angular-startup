@@ -9,6 +9,8 @@ import { PostsEditComponent } from './components/post-edit/post-edit.component';
 import { PostsListComponent } from './components/post-list/post-list.component';
 import { PostComponent } from './components/post/post.component';
 import { ImagePickerModule } from 'src/app/shared/forms/image-picker/image-picker.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { ImagePickerModule } from 'src/app/shared/forms/image-picker/image-picke
     CommonModule,
     ReactiveFormsModule,
     PostsRoutingModule,
-    ImagePickerModule
+    ImagePickerModule,
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class PostsModule { }
