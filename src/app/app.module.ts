@@ -17,6 +17,7 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
 import { ConfirmDialogComponent } from './shared/modals/confirm-dialog/confirm-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
+import { AnimationsModule } from './modules/animations/animations.module';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { MaterialModule } from './material.module';
     AuthenticationModule,
     PostsModule,
     UploadModule,
+    AnimationsModule,
     MaterialModule
   ],
   providers: [],
