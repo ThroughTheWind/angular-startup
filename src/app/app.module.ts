@@ -39,6 +39,7 @@ import { MaterialModule } from './material.module';
     MaterialModule
   ],
   providers: [],
+  entryComponents: [ConfirmDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

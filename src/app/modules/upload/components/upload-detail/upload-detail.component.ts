@@ -5,6 +5,8 @@ import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 import { UploadState } from '../../enums/upload-state';
 import { UploadService } from '../../services/upload.service';
 import { UploadDescription } from '../../models/UploadDescription';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../../../shared/modals/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-upload-detail',
@@ -21,7 +23,7 @@ export class UploadDetailComponent implements OnInit {
 
   get UploadState() { return UploadState; }
 
-  constructor(private uploadService: UploadService) { }
+  constructor(private uploadService: UploadService, public dialog: MatDialog) { }
 
   ngOnInit() {
     if(this.upload.state === UploadState.RUNNING) {
@@ -54,8 +56,17 @@ export class UploadDetailComponent implements OnInit {
   }
 
   deleteUpload() {
-    if(this.uploadService.deleteUpload(this.upload)) {
-      this.deleted.emit(this.upload);
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: {title: 'Confirm', text:`Do you wish to delete the upload ${this.upload.name} ?`}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        if(this.uploadService.deleteUpload(this.upload)) {
+          this.deleted.emit(this.upload);
+        }
+      }
+    })
   }
 }
