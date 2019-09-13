@@ -2,6 +2,7 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 @primary-light : #7e57c2;
+@accent-light: #ffecb3;
 @subheader-color: #eeeeee;
 @horizontal-padding: 16px;
 
@@ -70,10 +71,10 @@ body {
   flex: 1 1 auto;
 }
 
-.page-header, .page-subheader {
+.page-header, .page-subheader, .section-header {
     display: flex;
     flex-direction: column;
-    .page-header-actions, .page-subheader-actions {
+    .page-header-actions, .page-subheader-actions, .section-header-actions {
         display: flex;
         flex-direction: row-reverse;        
     }
@@ -91,6 +92,16 @@ body {
     color: #000000;
     
     h2.mat-h2 {
+        margin-top: 15px;
+    }
+}
+
+.section-subheader {
+    padding: 5px @horizontal-padding 5px @horizontal-padding;
+    background-color: @accent-light;
+    color: #000000;
+    
+    h3.mat-h3 {
         margin-top: 15px;
     }
 }
