@@ -1,31 +1,57 @@
-<div class="container">
+<div class="page-header">
     <h1 class="mat-h1">Uploads</h1>
+</div>
+<div class="page-subheader">
+    <h2 class="mat-h2">Upload a file</h2>
+</div>
+<div class="section-container">
     <app-uploader></app-uploader>
+</div>
+<div class="page-subheader">
+    <h2 class="mat-h2">Browse uploads</h2>
+</div>
+<div class="section-container">
     <mat-tab-group mat-align-tabs="center">
         <mat-tab label="Running">
             <h2 class="mat-h2">Running uploads <button mat-button color="warn" *ngIf="(runningUploads | async)?.length > 0" (click)="uploadService.cancelRunning()">Cancel All</button></h2>
-            <mat-grid-list cols="3" rowHeight="10:7">
+            <mat-grid-list cols="3" rowHeight="10:7" *ngIf="(runningUploads | async)?.length > 0">
                 <mat-grid-tile *ngFor="let running of runningUploads | async">
                     <app-upload-detail [upload]="running"></app-upload-detail>
                 </mat-grid-tile>
             </mat-grid-list>
+            <mat-card *ngIf="(runningUploads | async)?.length === 0">
+                <mat-card-content><p class="mat-body"><mat-icon>highlight_off</mat-icon> No running uploads</p></mat-card-content>
+            </mat-card>
         </mat-tab>
         <mat-tab label="Successfull">
             <h2 class="mat-h2">Successfull uploads</h2> 
-            <app-upload-filter (filtered)="onFiltered($event)"></app-upload-filter>           
-            <mat-grid-list cols="4" rowHeight="4:3" [@filterAnimation]="uploadTotal">
-                <mat-grid-tile *ngFor="let success of successfullUploads | async">
-                    <app-upload-detail [upload]="success"></app-upload-detail>
-                </mat-grid-tile>
-            </mat-grid-list>
+            <div class="uploads-container">
+                <div class="uploads-filter-container">
+                    <app-upload-filter (filtered)="onFiltered($event)"></app-upload-filter>    
+                </div>
+                <div class="uploads-list-container">
+                    <mat-grid-list cols="3" rowHeight="5:4" [@listStagger]="successLength">
+                        <mat-grid-tile *ngFor="let success of successfullUploads | async">
+                            <app-upload-detail [upload]="success"></app-upload-detail>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                    <mat-card *ngIf="(successfullUploads | async)?.length === 0">
+                        <mat-card-content><p class="mat-body"><mat-icon>highlight_off</mat-icon> No cancelled uploads</p></mat-card-content>
+                    </mat-card>
+                </div>
+                
+            </div>            
         </mat-tab>
         <mat-tab label="Cancelled">
             <h2 class="mat-h2">Cancelled uploads</h2>
-            <mat-grid-list cols="4" rowHeight="2:1">
+            <mat-grid-list cols="4" rowHeight="2:1" *ngIf="(cancelledUploads | async)?.length > 0">
                 <mat-grid-tile *ngFor="let cancelled of cancelledUploads | async">
                     <app-upload-detail [upload]="cancelled"></app-upload-detail>
                 </mat-grid-tile>
             </mat-grid-list>
+            <mat-card *ngIf="(cancelledUploads | async)?.length === 0">
+                <mat-card-content><p class="mat-body"><mat-icon>highlight_off</mat-icon> No cancelled uploads</p></mat-card-content>
+            </mat-card>
         </mat-tab>
     </mat-tab-group>
 </div>

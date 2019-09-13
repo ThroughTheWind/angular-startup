@@ -1,0 +1,17 @@
+mat-card {    
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);    
+    transform: translateX(4px);
+    mat-card-header{
+        min-width: 100%;        
+        mat-icon {
+            font-size: 40px;
+        }
+    }
+    p, mat-card-title {
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

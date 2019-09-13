@@ -1,12 +1,11 @@
-<div *ngIf="post">
-    <h3>{{post.id}} - {{post.name}}</h3>
-    <p>{{post.description}}</p>
-    <a [routerLink]="['/posts/edit', post.id]">Edit</a>
-    <a [routerLink]="" (click)="delete()">Delete</a>
-    <h4>Images</h4>
-    <div *ngFor="let image of post.images">
-        <p>{{image.title}}</p>
-        <img [src]="image.url">
-        <p>{{image.description}}</p>
-    </div>
-</div>
+<mat-card>
+    <mat-card-title>
+        {{post.name}}
+    </mat-card-title> 
+    <img mat-card-image [src]="post.images[0].url" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+        <p>
+            {{post.description}}
+        </p>
+    </mat-card-content>
+</mat-card>

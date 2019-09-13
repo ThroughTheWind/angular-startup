@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+@primary-light : #7e57c2;
+@subheader-color: #eeeeee;
+@horizontal-padding: 16px;
+
 body {
     margin: 3vh 10vw;
     background-color: #e8eaf6;
@@ -64,4 +68,30 @@ body {
   /* This fills the remaining space, by using flexbox. 
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
+}
+
+.page-header, .page-subheader {
+    display: flex;
+    flex-direction: column;
+    .page-header-actions, .page-subheader-actions {
+        display: flex;
+        flex-direction: row-reverse;        
+    }
+}
+
+.page-header {    
+    padding: 20px @horizontal-padding 5px @horizontal-padding;
+    background-color: @primary-light;
+    color: #ffffff;
+}
+
+.page-subheader {
+    padding: 5px @horizontal-padding 5px @horizontal-padding;
+    background-color: @subheader-color;
+    color: #000000;
+}
+
+
+.page-container, .section-container {
+    padding: 10px @horizontal-padding;
 }

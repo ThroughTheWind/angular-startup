@@ -6,25 +6,69 @@ import { UploadState } from '../../enums/upload-state';
 import { UploadFilters } from '../../models/UploadFilters';
 import { map } from 'rxjs/operators';
 import { UploadSortType } from '../../enums/upload-sort-type';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  query,
+  stagger
+} from '@angular/animations';
 
 @Component({
   selector: 'app-uploads',
   templateUrl: './uploads.component.html',
-  styleUrls: ['./uploads.component.less']
+  styleUrls: ['./uploads.component.less'],
+  animations: [
+    trigger('listStagger', [
+      transition('* <=> *', [
+        query(
+          ':enter',
+          [
+            style({ opacity: 0, transform: 'translateY(-15px)' }),
+            stagger(
+              '50ms',
+              animate(
+                '550ms ease-out',
+                style({ opacity: 1, transform: 'translateY(0px)' })
+              )
+            )
+          ],
+          { optional: true }
+        ),
+        query(':leave', animate('50ms', style({ opacity: 0 })), {
+          optional: true
+        })
+      ])
+    ])
+  ]
 })
 export class UploadsComponent implements OnInit {
-  uploadTotal = -1;
   runningUploads: Observable<Upload[]>;
+  runningLength: number = -1;
   successfullUploads: Observable<Upload[]>;
+  successLength: number = -1;
   cancelledUploads: Observable<Upload[]>;
+  cancelledLength: number = -1;
   filters: UploadFilters;
 
   constructor(private uploadService: UploadService) { }
 
   ngOnInit() {
-    this.runningUploads = this.uploadService.getRunningUploads();
+    this.runningUploads = this.uploadService.getRunningUploads().pipe(
+      map(uploads => {
+        this.runningLength = uploads.length;
+        return uploads;
+      })
+    );
     this.loadSuccessfulUploads();
-    this.cancelledUploads = this.uploadService.getCancelledUploads();
+    this.cancelledUploads = this.uploadService.getCancelledUploads().pipe(
+      map(uploads => {
+        this.cancelledLength = uploads.length;
+        return uploads;
+      })
+    );;
   }
 
   cancelRunnings() {
@@ -38,7 +82,12 @@ export class UploadsComponent implements OnInit {
 
   loadSuccessfulUploads() {
     this.successfullUploads = this.uploadService.getSuccessfullUploads().pipe(
-      map(uploads => this.filterUploads(uploads))
+      map(uploads => {
+        this.successLength = -1;
+        uploads = this.filterUploads(uploads);
+        this.successLength = uploads.length;
+        return uploads;
+      })
     );
   }
 

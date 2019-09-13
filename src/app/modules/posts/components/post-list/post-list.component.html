@@ -1,4 +1,5 @@
-<h2>Your posts list</h2>
-<div>
-    <app-post *ngFor="let post of posts" [post]="post" (deleted)="delete($event)"></app-post>
-</div>
+<mat-grid-list cols="4" rowHeight="1:2">
+    <mat-grid-tile *ngFor="let post of posts">
+        <app-post *ngFor="let post of posts" [post]="post" (deleted)="delete($event)"></app-post>
+    </mat-grid-tile>
+</mat-grid-list>

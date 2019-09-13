@@ -11,6 +11,8 @@ import { PostComponent } from './components/post/post.component';
 import { ImagePickerModule } from 'src/app/shared/forms/image-picker/image-picker.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { MatIconModule } from '@angular/material/icon';
     PostsRoutingModule,
     ImagePickerModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatGridListModule,
+    MatCardModule
   ]
 })
 export class PostsModule { }

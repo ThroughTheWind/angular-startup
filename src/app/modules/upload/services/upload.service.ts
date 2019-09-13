@@ -134,6 +134,7 @@ export class UploadService {
 
   cancelRunning() {
     this.dataStore.runningUploads.forEach(upload => {
+      upload.task.resume();
       upload.task.cancel();
     });
     this.dataStore.runningUploads = [];
