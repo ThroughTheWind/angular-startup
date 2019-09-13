@@ -12,17 +12,17 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-
 import { PostsModule } from './modules/posts/posts.module';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
+import { ConfirmDialogComponent } from './shared/modals/confirm-dialog/confirm-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from './material.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -32,12 +32,11 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    ReactiveFormsModule,
     AuthenticationModule,
     PostsModule,
     UploadModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatCardModule
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

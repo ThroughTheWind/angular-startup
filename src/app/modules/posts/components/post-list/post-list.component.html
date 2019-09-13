@@ -1,5 +1,10 @@
-<mat-grid-list cols="4" rowHeight="1:2">
-    <mat-grid-tile *ngFor="let post of posts">
-        <app-post *ngFor="let post of posts" [post]="post" (deleted)="delete($event)"></app-post>
-    </mat-grid-tile>
-</mat-grid-list>
+<div class="page-subheader">
+    <h2 class="mat-h2">Browse posts</h2>
+</div>
+<div class="page-container">
+    <mat-grid-list cols="4" rowHeight="1:2">
+        <mat-grid-tile *ngFor="let post of posts">
+            <app-post *ngFor="let post of posts" [post]="post" (deleted)="delete($event)"></app-post>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

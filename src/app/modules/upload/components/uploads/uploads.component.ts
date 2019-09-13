@@ -46,29 +46,17 @@ import {
 })
 export class UploadsComponent implements OnInit {
   runningUploads: Observable<Upload[]>;
-  runningLength: number = -1;
   successfullUploads: Observable<Upload[]>;
   successLength: number = -1;
   cancelledUploads: Observable<Upload[]>;
-  cancelledLength: number = -1;
   filters: UploadFilters;
 
   constructor(private uploadService: UploadService) { }
 
   ngOnInit() {
-    this.runningUploads = this.uploadService.getRunningUploads().pipe(
-      map(uploads => {
-        this.runningLength = uploads.length;
-        return uploads;
-      })
-    );
+    this.runningUploads = this.uploadService.getRunningUploads();
     this.loadSuccessfulUploads();
-    this.cancelledUploads = this.uploadService.getCancelledUploads().pipe(
-      map(uploads => {
-        this.cancelledLength = uploads.length;
-        return uploads;
-      })
-    );;
+    this.cancelledUploads = this.uploadService.getCancelledUploads();
   }
 
   cancelRunnings() {
