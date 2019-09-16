@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Startup/NgMdFirebaseBlog';
+  overlayOpened = false;
   constructor(private authenticationService: AuthenticationService) {}
 
   isAuthenticated(): boolean {
@@ -17,5 +18,8 @@ export class AppComponent {
 
   logOut() {
     this.authenticationService.logOut();
+  }
+  toggleOverlay() {
+    this.overlayOpened = !this.overlayOpened;
   }
 }

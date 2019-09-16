@@ -18,5 +18,11 @@
             <a mat-button routerLink="/uploads">Uploads</a>
         </mat-toolbar-row>
     </mat-toolbar>
+    <div>
+        <button mat-button (click)="toggleOverlay()" #targetOverlay>CLICK ME BITCH</button>
+        <app-md-overlay [targetElement]="targetOverlay" [opened]="overlayOpened" [position]="TOP" [width]='50+"%"' [height]='50+"px"'>
+            <mat-card-title>Trying some shit</mat-card-title>
+        </app-md-overlay>
+    </div>
     <router-outlet></router-outlet>
 </div>

@@ -17,6 +17,7 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
 import { ConfirmDialogComponent } from './shared/modals/confirm-dialog/confirm-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
+import { MdOverlayModule } from './shared/modals/md-overlay/md-overlay.module';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { MaterialModule } from './material.module';
     AuthenticationModule,
     PostsModule,
     UploadModule,
-    MaterialModule
+    MaterialModule,
+    MdOverlayModule
   ],
   providers: [],
   entryComponents: [ConfirmDialogComponent],
