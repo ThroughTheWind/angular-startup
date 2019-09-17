@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, Output, EventEmitter, HostBinding } from '@angular/core';
 import { OverlayPosition } from '../enums/OverlayPosition';
 
 @Component({
@@ -15,7 +15,7 @@ export class MdOverlayComponent implements OnInit {
   };
 
   get targetElement() {
-    return this._targetElement;
+    return this._targetElement as ElementRef;
   }
 
   private _position : OverlayPosition;
@@ -28,13 +28,9 @@ export class MdOverlayComponent implements OnInit {
     return this._position;
   }
 
-  @Input() width: string;
+  private _opened: boolean = false;
 
-  @Input() height: string;
-
-  private _opened: boolean;
-
-  @Input() set opened(val: boolean) {
+  set opened(val: boolean) {
     this._opened = val;
     this.openedChange.emit(val);
   }
@@ -45,9 +41,36 @@ export class MdOverlayComponent implements OnInit {
 
   @Output() openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  @HostBinding('style.width') @Input() width;
+  @HostBinding('style.height') @Input() height;
+  @HostBinding('style.display') display;
+
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  hide() {
+    this.display = 'none';
+    this.opened = false;
+  }
+
+  show() {
+    this.display = 'block';
+    this.opened = true;
+  }
+
+  toggle() {
+    if(this.opened) {
+      this.hide();
+    } else {
+      this.show();
+    }
+  }
+
+  onClickOutside(element: ElementRef) {
+    
   }
 
 }

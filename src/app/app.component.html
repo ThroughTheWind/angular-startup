@@ -12,15 +12,15 @@
             </ng-container>
         </mat-toolbar-row>
         <mat-toolbar-row>
-            <span class="fill-remaining-space"></span>        
+            <span class="fill-remaining-space"></span>
             <a mat-button routerLink="/">Home</a>
             <a mat-button routerLink="/posts">Posts</a>
             <a mat-button routerLink="/uploads">Uploads</a>
         </mat-toolbar-row>
     </mat-toolbar>
     <div>
-        <button mat-button (click)="toggleOverlay()" #targetOverlay>CLICK ME BITCH</button>
-        <app-md-overlay [targetElement]="targetOverlay" [opened]="overlayOpened" [position]="TOP" [width]='50+"%"' [height]='50+"px"'>
+        <button (click)="overlay.toggle()" #targetOverlay>CLICK ME BITCH</button>
+        <app-md-overlay [targetElement]="targetOverlay" [position]="TOP" [width]='50+"vw"' [height]='50+"vh"' #overlay>
             <mat-card-title>Trying some shit</mat-card-title>
         </app-md-overlay>
     </div>

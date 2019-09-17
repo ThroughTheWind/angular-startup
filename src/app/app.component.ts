@@ -19,6 +19,7 @@ export class AppComponent {
   logOut() {
     this.authenticationService.logOut();
   }
+  
   toggleOverlay() {
     this.overlayOpened = !this.overlayOpened;
   }
