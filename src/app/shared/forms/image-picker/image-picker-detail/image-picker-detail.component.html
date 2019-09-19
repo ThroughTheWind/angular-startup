@@ -1,14 +1,17 @@
 <div [formGroup]="group">
-        <div>
-            <img [src]="group.value.url">
+    <div class="detail-container">
+        <div class="image-container">
+            <img [src]="group.value.url">            
         </div>
-        <div>
-            <label for="title">Titre</label>
-            <input formControlName="title" name="title" id="title">
+        <div class="infos-container">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Title" formControlName="title">
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <textarea matInput placeholder="Description" formControlName="description"></textarea>
+            </mat-form-field>
+            
+            <button (click)="onDelete()">Remove</button>
         </div>
-        <div>
-            <label for="description">Description</label>
-            <input formControlName="description" name="description" id="description">
-        </div>
-    <button (click)="onDelete()">Remove</button>
+    </div>
 </div>

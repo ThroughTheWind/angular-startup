@@ -1,9 +1,12 @@
 <div [formGroup]="parentForm">
-    <h3>Images</h3>
+    <h2 class="mat-h2">Images</h2>
+    <p class="mat-body">Drag and drop image files to add them</p>
     <div formArrayName="images" >
-        <div *ngFor="let image of images.controls; let i = index;" >
-            <app-image-picker-detail [group]="image" [index]="i" (delete)="removeImage(i)"></app-image-picker-detail>
-        </div>
+        <mat-grid-list cols="1" rowHeight="3:1">
+            <mat-grid-tile *ngFor="let image of images.controls; let i = index;">
+                <app-image-picker-detail [group]="image" [index]="i" (delete)="removeImage(i)"></app-image-picker-detail>
+            </mat-grid-tile>
+        </mat-grid-list>
     </div>
     <app-uploader (uploaded)="onUpload($event)"></app-uploader>
 </div>

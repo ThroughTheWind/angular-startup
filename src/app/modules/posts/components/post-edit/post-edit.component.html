@@ -1,29 +1,36 @@
-<h2 *ngIf="isCreateState()">Nouvel post !</h2>
-<h2 *ngIf="!isCreateState()">Update post !</h2>
-<div>
+
+<mat-card class="form-card">
     <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-        <div>
-            <label>Name</label>
-            <input formControlName="name" required>
-            <div *ngIf="name.errors && (name.touched || name.dirty)">
-                <span *ngIf="name.errors.required">Name is required</span>
-                <span *ngIf="name.errors.nameTaken">Name already exists</span>
-            </div>
-        </div>
-        <div>
-            <label>Description</label>
-            <input formControlName="description" required>
-            <div *ngIf="description.errors && (description.touched || description.dirty)">
-                <span *ngIf="description.errors.required">Description is required</span>
-            </div>
-        </div>
+        <mat-card-title *ngIf="isCreateState()">
+            New post
+        </mat-card-title>
+        <mat-card-title *ngIf="!isCreateState()">
+            Update post
+        </mat-card-title>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Title" formControlName="name" autofocus required>
+            <mat-error *ngIf="name.errors?.required">
+                Title is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="name.errors?.nameTaken">
+                Title already exists
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <textarea matInput placeholder="Description" formControlName="description" required></textarea>
+            <mat-error *ngIf="description.errors?.required">
+                Description is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
         <app-image-picker [parentForm]="postForm" #imagePicker></app-image-picker>
         <div>
-            <p>
-                Form Status: {{ postForm.status }}
-                <span *ngIf="apiError"><br>{{apiError}}</span>
-            </p>
-            <button type="submit" [disabled]="!postForm.valid">Submit</button>
+            <mat-error *ngIf="!name.errors && !description.errors && images.errors?.required">At least one image is required</mat-error>
+            <mat-error *ngIf="apiError">{{apiError}}</mat-error>
         </div>
+        
+        <mat-card-actions>
+            <button mat-raised-button color="warn" type="reset">Reset</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!postForm.valid">Submit</button>
+        </mat-card-actions>
     </form>
-</div>
+</mat-card>

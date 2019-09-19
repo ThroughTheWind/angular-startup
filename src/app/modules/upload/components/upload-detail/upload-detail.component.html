@@ -5,14 +5,35 @@
         <mat-card-subtitle>{{upload.extension}} file</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <p>Size : {{upload.size | displayFileSize}}</p>
-        <p>Extension : {{upload.extension}}</p>
-        <p>Launched on : {{upload.createdAt | date:'short'}}</p>    
-        <ng-container *ngIf="upload.state === UploadState.SUCCESS">
-            <p [title]="upload.path">Path : {{upload.path}}</p>
-        </ng-container>
+        <div class="details-container mat-body">
+            <div class="label">
+                Size
+            </div>
+            <div class="value">
+                {{upload.size | displayFileSize}}
+            </div>
+            <div class="label">
+                Extension
+            </div>
+            <div class="value">
+                {{upload.extension}}
+            </div>
+            <div class="label">
+                Launched on
+            </div>
+            <div class="value">
+                {{upload.createdAt | date:'short'}}
+            </div>
+            <ng-container *ngIf="upload.state === UploadState.SUCCESS || upload.state === UploadState.RUNNING">
+                <div class="label">
+                    Path
+                </div>
+                <div class="value" [title]="upload.path">
+                    {{upload.path}}
+                </div>
+            </ng-container>
+        </div>
         <ng-container *ngIf="upload.state === UploadState.RUNNING">
-            <p [title]="upload.path">Path : {{upload.path}}</p>
             <ng-container *ngIf="snapshot | async as snap">   
                 <div *ngIf="percentage | async as pct" class="mat-h4 text-center">
                     {{ pct | number }}%

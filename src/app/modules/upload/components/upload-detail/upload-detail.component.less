@@ -8,11 +8,31 @@ mat-card {
             font-size: 40px;
         }
     }
-    p, mat-card-title {
+    p, mat-card-title, td {
         max-width: 100%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+    table {
+        max-width: 100%;
+        overflow: hidden;
+    }
+    .details-container {
+        display: flex;
+        flex-direction: row;      
+        flex-wrap: wrap;  
+        div.label {
+            padding: 8px 0 0 0;
+            width: 30%;
+        }
+        div.value {
+            padding: 8px 0 0 8px;
+            width: calc(70% - 8px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 }
 
