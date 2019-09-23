@@ -9,6 +9,10 @@ import { Post } from '../../models/Post';
 })
 export class PostsListComponent implements OnInit {
   posts: Post[];
+  masonryOptions = {
+    resize: true,
+    initLayout: true
+  }
   constructor(public postsService: PostsService) { }
 
   ngOnInit() {

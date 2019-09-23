@@ -10,6 +10,7 @@ import { PostsListComponent } from './components/post-list/post-list.component';
 import { PostComponent } from './components/post/post.component';
 import { ImagePickerModule } from 'src/app/shared/forms/image-picker/image-picker.module';
 import { MaterialModule } from '../../material.module';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MaterialModule } from '../../material.module';
     ReactiveFormsModule,
     PostsRoutingModule,
     ImagePickerModule,
-    MaterialModule
+    MaterialModule,
+    NgxMasonryModule
   ]
 })
 export class PostsModule { }
