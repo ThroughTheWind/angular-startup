@@ -2,6 +2,17 @@ mat-card {
     width: calc(100% - 40px);
     height: calc(100% - 40px);    
     transform: translateX(4px);
+    display: flex;
+    flex-direction: column;
+
+    .image-container {
+        height: 70%;
+        img {
+            max-height: 100%;
+            width: auto;
+        }
+    }
+
     mat-card-header{
         min-width: 100%;        
         mat-icon {

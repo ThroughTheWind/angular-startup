@@ -1,11 +1,30 @@
-<mat-card>
+<mat-card class="post-card">
+    <div class="image-container">
+        <img mat-card-image [src]="post.images[0].url" alt="Photo of a Shiba Inu">
+    </div>
     <mat-card-title>
         {{post.name}}
-    </mat-card-title> 
-    <img mat-card-image [src]="post.images[0].url" alt="Photo of a Shiba Inu">
+    </mat-card-title>
     <mat-card-content>
         <p>
             {{post.description}}
         </p>
     </mat-card-content>
+    <mat-card-actions>
+        <button mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+            <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
+            <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+            <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button disabled aria-label="Example icon-button with a heart icon">
+            <mat-icon>favorite</mat-icon>
+        </button>
+    </mat-card-actions>
 </mat-card>

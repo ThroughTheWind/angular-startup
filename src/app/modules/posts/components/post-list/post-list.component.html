@@ -2,9 +2,9 @@
     <h2 class="mat-h2">Browse posts</h2>
 </div>
 <div class="page-container">
-    <mat-grid-list cols="4" rowHeight="1:2">
+    <mat-grid-list cols="2" rowHeight="2:1">
         <mat-grid-tile *ngFor="let post of posts">
-            <app-post *ngFor="let post of posts" [post]="post" (deleted)="delete($event)"></app-post>
+            <app-post [post]="post" (deleted)="delete($event)"></app-post>
         </mat-grid-tile>
     </mat-grid-list>
 </div>
