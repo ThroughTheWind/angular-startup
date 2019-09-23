@@ -11,13 +11,15 @@ import { PostComponent } from './components/post/post.component';
 import { ImagePickerModule } from 'src/app/shared/forms/image-picker/image-picker.module';
 import { MaterialModule } from '../../material.module';
 import { NgxMasonryModule } from 'ngx-masonry';
+import { PostFilterComponent } from './components/post-filter/post-filter.component';
 
 @NgModule({
   declarations: [
     PostsComponent,
     PostsListComponent,
     PostsEditComponent,
-    PostComponent
+    PostComponent,
+    PostFilterComponent
   ],
   imports: [
     CommonModule,
