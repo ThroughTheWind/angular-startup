@@ -17,7 +17,11 @@ export class PostsService {
 
 
   getPosts(): Observable<Post[]> {
-    return this.db.collection<Post>('posts').valueChanges();
+    return this.db.collection<Post>('posts').valueChanges().pipe(
+      map(posts => {
+        return posts.sort((a, b) => {return a.createdAt < b.createdAt ? -1 : 1})
+      })
+    );
   }
 
   getPost(id: string): Observable<Post> {
@@ -30,6 +34,7 @@ export class PostsService {
       // Generate id with firebase util
       const idGenerated = this.db.createId();
       post.id = idGenerated;
+      post.createdAt = new Date();
       // Set post to id generated
       this.postsCollection.doc(idGenerated).set(post).then(() => observer.next(), () => observer.error('Error creating post'));
     });
@@ -38,6 +43,7 @@ export class PostsService {
   updatePost(post: Post) {
     return new Observable(observer => {
       if (!post) { observer.error('Post can\'t be null'); }
+      post.updatedAt = new Date();
       this.postsCollection.doc(post.id).update(post).then(() => observer.next(), () => observer.error('Error updating post'));
     });
   }

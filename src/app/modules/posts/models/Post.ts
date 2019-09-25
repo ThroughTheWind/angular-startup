@@ -4,4 +4,6 @@ export interface Post {
     name: string;
     description: string;
     images: Image[];
+    createdAt: Date;
+    updatedAt: Date;
 }
