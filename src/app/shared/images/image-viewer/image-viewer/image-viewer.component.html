@@ -12,9 +12,14 @@
         <p>
             {{selectedImage.description}}
         </p>
-
     </div>
-    <button class="previous-btn" mat-icon-button *ngIf="length > 1" [disabled]="_selectedIndex == 0" (click)="previous()"><mat-icon>keyboard_arrow_left</mat-icon></button>
-    <button class="next-btn" mat-icon-button *ngIf="length > 1" [disabled]="_selectedIndex == length - 1" (click)="next()"><mat-icon>keyboard_arrow_right</mat-icon></button>
-
+    <div class="actions-ctn">
+        <div class="previous-ctn">
+            <button class="previous-btn" *ngIf="length > 1" mat-icon-button [disabled]="_selectedIndex == 0" (click)="previous()"><mat-icon>keyboard_arrow_left</mat-icon></button> 
+        </div>
+        <div class="next-ctn">
+            <button class="next-btn" mat-icon-button *ngIf="length > 1" [disabled]="_selectedIndex == length - 1" (click)="next()"><mat-icon>keyboard_arrow_right</mat-icon></button>
+        </div>
+    </div>
+    
 </div>

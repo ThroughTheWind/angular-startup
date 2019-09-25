@@ -28,4 +28,26 @@
             width: auto;
         }
     }
+
+    .actions-ctn {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 100%;
+        .next-ctn, .previous-ctn {
+            width: 20%;
+            button {
+                top: calc(50% - 20px);
+            }
+        }
+
+        .next-ctn:hover {
+            background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,255,255,1));
+        }
+
+        .previous-ctn:hover {
+            background-image: linear-gradient(to left, rgba(255,0,0,0), rgba(255,255,255,1));
+        }
+    }
+
 }
