@@ -1,0 +1,29 @@
+.image-viewer {
+    height: 400px;
+    width: 400px;
+    text-align: center;
+    position: relative;
+    .image-container, .hover-details {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: center;
+        img {
+            position: absolute;
+        }
+        img.landscape {
+            width: 100%;
+            height: auto;
+        }
+        img.portrait {
+            height: 100%;
+            width: auto;
+        }
+    }
+}

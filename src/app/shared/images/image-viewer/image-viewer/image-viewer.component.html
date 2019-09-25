@@ -1,0 +1,19 @@
+<div class="image-viewer" *ngIf="selectedImage">
+    <div class="image-container" #imageContainer>
+        <img [src]="selectedImage.url" *ngIf="!error" #displayedImage (error)="invalidImage()" (load)="onLoadImage()" [class.portrait]="_portrait" [class.landscape]="!_portrait">
+        <img [src]="errorImageUrl" *ngIf="error" class="landscape">
+    </div>
+    <div class="hover-details">
+        <p>
+            {{selectedImage.title}}
+        </p>
+        <p>
+            {{selectedImage.description}}
+        </p>
+
+        <div *ngIf="length > 1">
+            <button mat-button [disabled]="_selectedIndex == 0" (click)="previous()">PREVIOUS</button>
+            <button mat-button [disabled]="_selectedIndex == length - 1" (click)="next()">NEXT</button>
+        </div>
+    </div>
+</div>
