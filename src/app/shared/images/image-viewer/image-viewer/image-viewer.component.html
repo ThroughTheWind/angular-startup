@@ -1,7 +1,9 @@
 <div class="image-viewer" *ngIf="selectedImage">
-    <div class="image-container" #imageContainer>
-        <img [src]="selectedImage.url" *ngIf="!error" #displayedImage (error)="invalidImage()" (load)="onLoadImage()" [class.portrait]="_portrait" [class.landscape]="!_portrait">
-        <img [src]="errorImageUrl" *ngIf="error" class="landscape">
+    <div class="image-container" #imageContainer [hidden]="!_loaded">
+        <img [src]="selectedImage.url" *ngIf="!_error" #displayedImage (error)="invalidImage()" (load)="onLoadImage()" 
+            [class.portrait]="_orientation == ImageOrientation.PORTRAIT" [class.landscape]="_orientation == ImageOrientation.LANDSCAPE">
+        <img [src]="_errorImageUrl" *ngIf="_error" #errorImage (load)="onLoadImage()" 
+            [class.portrait]="_orientation == ImageOrientation.PORTRAIT" [class.landscape]="_orientation == ImageOrientation.LANDSCAPE">
     </div>
     <div class="hover-details">
         <p>
@@ -11,9 +13,8 @@
             {{selectedImage.description}}
         </p>
 
-        <div *ngIf="length > 1">
-            <button mat-button [disabled]="_selectedIndex == 0" (click)="previous()">PREVIOUS</button>
-            <button mat-button [disabled]="_selectedIndex == length - 1" (click)="next()">NEXT</button>
-        </div>
     </div>
+    <button class="previous-btn" mat-icon-button *ngIf="length > 1" [disabled]="_selectedIndex == 0" (click)="previous()"><mat-icon>keyboard_arrow_left</mat-icon></button>
+    <button class="next-btn" mat-icon-button *ngIf="length > 1" [disabled]="_selectedIndex == length - 1" (click)="next()"><mat-icon>keyboard_arrow_right</mat-icon></button>
+
 </div>

@@ -23,7 +23,11 @@ export class AppComponent {
   },{
     title: 'BAD URL BITCH',
     description: 'See those heroes ?',
-    url: 'https://firebasestorage.googleapis.com/v0/b/startupangular.appspot.com/o/files%2F1569245106016_633-1'
+    url: 'https://firebasestorage.googleapis.com/v0/b/startupangular.appspot.com/o/files%2F1567703186622_wp1.jpg?alt=media&token=1079d65a-12b2-4887-bccd-beeeec7044ab'
+  },{
+    title: 'BAD URL BITCH',
+    description: 'See those heroes ?',
+    url: 'https://firebasestor.com/v0/b/startupangular.appspot.com/o/files%2F1567703186622_wp1.jpg?alt=media&token=1079d65a-12b2-4887-bccd-beeeec7044ab'
   }] as Image[];
   
   isAuthenticated(): boolean {
