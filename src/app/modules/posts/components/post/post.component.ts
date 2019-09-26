@@ -18,9 +18,9 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
         zIndex: 0
       })),
       transition('* => hover', [
-        animate('0.1s', style({ transform: 'scale(0.95)'})),
         style({ zIndex: 1000}),
-        animate('1s', style({ transform: 'scale(1.2)', zIndex: 1000})),
+        animate('0.1s', style({ transform: 'scale(0.95)'})),
+        animate('1s', style({ transform: 'scale(1.2)'})),
       ]),
       transition('hover => *', [
         style({ transform: 'scale(1.2)'}),

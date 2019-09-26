@@ -26,14 +26,14 @@ import {
         [
             transition(
                 ':enter', [
-                    style({ transform: 'scale(.7)', opacity: 0 }),
-                    animate('1s', style({ opacity: 1, transform: 'scale(1)' })),
+                    style({ transform: 'translateY(-400px)', opacity: 0 }),
+                    animate('1s ease-in', style({ opacity: 1, transform: 'translateY(0px)' })),
                 ]
             ),
             transition(
                 ':leave', [
-                    style({ opacity: 1, transform: 'scale(1)' }),
-                    animate('0.5s', style({ opacity: 0, transform: 'scale(.7)' })),
+                    style({ opacity: 1 }),
+                    animate('0.5s', style({ opacity: 0, transform: 'translateY(400px)' })),
                 ]
             ),
         ])
