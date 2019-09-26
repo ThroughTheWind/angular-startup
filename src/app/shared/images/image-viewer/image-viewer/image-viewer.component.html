@@ -1,0 +1,25 @@
+<div class="image-viewer" *ngIf="selectedImage">
+    <div class="image-container" #imageContainer [hidden]="!_loaded">
+        <img [src]="selectedImage.url" *ngIf="!_error" #displayedImage (error)="invalidImage()" (load)="onLoadImage()" 
+            [class.portrait]="_orientation == ImageOrientation.PORTRAIT" [class.landscape]="_orientation == ImageOrientation.LANDSCAPE">
+        <img [src]="_errorImageUrl" *ngIf="_error" #errorImage (load)="onLoadImage()" 
+            [class.portrait]="_orientation == ImageOrientation.PORTRAIT" [class.landscape]="_orientation == ImageOrientation.LANDSCAPE">
+    </div>
+    <div class="hover-details">
+        <p>
+            {{selectedImage.title}}
+        </p>
+        <p>
+            {{selectedImage.description}}
+        </p>
+    </div>
+    <div class="actions-ctn">
+        <div class="previous-ctn">
+            <button class="previous-btn" *ngIf="length > 1" mat-icon-button [disabled]="_selectedIndex == 0" (click)="previous()"><mat-icon>keyboard_arrow_left</mat-icon></button> 
+        </div>
+        <div class="next-ctn">
+            <button class="next-btn" mat-icon-button *ngIf="length > 1" [disabled]="_selectedIndex == length - 1" (click)="next()"><mat-icon>keyboard_arrow_right</mat-icon></button>
+        </div>
+    </div>
+    
+</div>
