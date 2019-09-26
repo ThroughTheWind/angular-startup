@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { PostFilters } from '../../models/PostFilters';
+import { PostSortType } from '../../enum/post-sort-type';
 
 @Component({
   selector: 'app-post-filter',
@@ -17,6 +19,10 @@ export class PostFilterComponent implements OnInit {
     sortType: ['']
   });
 
+  sortingTypes = Object.values(PostSortType);
+
+  @Output() filtered = new EventEmitter<PostFilters>();
+
   get startDate() { return this.filterForm.value.createdAt.start; }
   get endDate() { return this.filterForm.value.createdAt.end; }
   get maxStartDate() {
@@ -28,5 +34,10 @@ export class PostFilterComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  onSubmit() {
+    this.filtered.emit(this.filterForm.value as PostFilters);
+  }
+
 
 }

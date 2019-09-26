@@ -55,7 +55,7 @@ export class UploadsComponent implements OnInit {
 
   ngOnInit() {
     this.runningUploads = this.uploadService.getRunningUploads();
-    this.loadSuccessfulUploads();
+    this.loadSuccessfullUploads();
     this.cancelledUploads = this.uploadService.getCancelledUploads();
   }
 
@@ -65,10 +65,10 @@ export class UploadsComponent implements OnInit {
 
   onFiltered(filters: UploadFilters) {
     this.filters = filters;
-    this.loadSuccessfulUploads();
+    this.loadSuccessfullUploads();
   }
 
-  loadSuccessfulUploads() {
+  loadSuccessfullUploads() {
     this.successfullUploads = this.uploadService.getSuccessfullUploads().pipe(
       map(uploads => {
         this.successLength = -1;

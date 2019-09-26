@@ -19,7 +19,13 @@ export class PostsService {
   getPosts(): Observable<Post[]> {
     return this.db.collection<Post>('posts').valueChanges().pipe(
       map(posts => {
-        return posts.sort((a, b) => {return a.createdAt < b.createdAt ? -1 : 1})
+        return posts.map(post => {
+          post.createdAt = new Date(post.createdAt['seconds'] * 1000);
+          if(post.updatedAt) {
+            post.updatedAt = new Date(post.updatedAt['seconds'] * 1000);
+          }
+          return post;
+        });
       })
     );
   }
