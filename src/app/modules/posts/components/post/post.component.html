@@ -1,6 +1,6 @@
-<mat-card class="post-card">
+<mat-card class="post-card"  >
     <div class="image-container">
-        <img mat-card-image [src]="post.images[0].url" alt="Photo of a Shiba Inu">
+        <img mat-card-image [src]="post.images[0].url" [@hover]="hover" (mouseover)="hover='hover'" (mouseout)="hover='*'">
     </div>
     <mat-card-title>
         {{post.name}}

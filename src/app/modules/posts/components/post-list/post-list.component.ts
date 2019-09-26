@@ -7,11 +7,37 @@ import { PostFilters } from '../../models/PostFilters';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PostSortType } from '../../enum/post-sort-type';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
 
 @Component({
   selector: 'app-posts-list',
   templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.less']
+  styleUrls: ['./post-list.component.less'],
+  animations: [
+    trigger(
+        'modalFadeZoom',
+        [
+            transition(
+                ':enter', [
+                    style({ transform: 'scale(.7)', opacity: 0 }),
+                    animate('1s', style({ opacity: 1, transform: 'scale(1)' })),
+                ]
+            ),
+            transition(
+                ':leave', [
+                    style({ opacity: 1, transform: 'scale(1)' }),
+                    animate('0.5s', style({ opacity: 0, transform: 'scale(.7)' })),
+                ]
+            ),
+        ])
+]
 })
 export class PostsListComponent implements OnInit {
   posts: Observable<Post[]>;
