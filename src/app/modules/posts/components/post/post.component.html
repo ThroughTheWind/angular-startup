@@ -29,5 +29,9 @@
         <button mat-icon-button (click)="delete()">
             <mat-icon>delete</mat-icon>
         </button>
+        
+        <a mat-icon-button [routerLink]="['/posts/edit', post.id]">
+            <mat-icon>delete</mat-icon>
+        </a>
     </mat-card-actions>
 </mat-card>

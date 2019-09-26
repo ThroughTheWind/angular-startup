@@ -29,7 +29,7 @@
         </div>
         
         <mat-card-actions>
-            <button mat-raised-button color="warn" type="reset">Reset</button>
+            <button mat-raised-button color="warn" type="reset" (click)="resetForm()">Reset</button>
             <button mat-raised-button color="primary" type="submit" [disabled]="!postForm.valid">Submit</button>
         </mat-card-actions>
     </form>

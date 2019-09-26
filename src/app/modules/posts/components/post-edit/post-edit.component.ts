@@ -69,8 +69,9 @@ export class PostsEditComponent implements OnInit {
     this.postForm.patchValue({
       name: '',
       description: '',
-      images: this.fb.array([])
-    });
+      images: []
+    });    
+    this.imagePicker.loadImages([]); 
     this.post = {} as Post;
   }
 
