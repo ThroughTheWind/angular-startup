@@ -5,6 +5,7 @@ import { ImagePickerComponent } from './image-picker.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UploadModule } from '../../../modules/upload/upload.module';
 import { MaterialModule } from '../../../material.module';
+import { ImageViewerModule } from '../../images/image-viewer/image-viewer.module';
 
 
 
@@ -17,7 +18,8 @@ import { MaterialModule } from '../../../material.module';
     CommonModule,
     ReactiveFormsModule,
     UploadModule,
-    MaterialModule
+    MaterialModule,
+    ImageViewerModule
   ],
   exports: [ImagePickerComponent]
 })

@@ -12,9 +12,16 @@ export class ImagePickerDetailComponent implements OnInit {
   @Input() group: FormGroup;
   @Input() index: number;
   @Output() delete = new EventEmitter();
+
+  image: Image;
+  
   constructor() { }
 
   ngOnInit() {
+    this.image = this.group.value as Image;
+    this.group.valueChanges.subscribe(val => {
+      this.image =  val;
+    })
   }
 
   onDelete() {
