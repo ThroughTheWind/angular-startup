@@ -2,6 +2,8 @@ import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectorRef } fr
 import { Image } from '../../../models/Image';
 import { ImageOrientation } from '../enums/ImageOrientation';
 
+const DEFAULT_HEIGHT = 400 + "px";
+
 @Component({
   selector: 'app-image-viewer',
   templateUrl: './image-viewer.component.html',
@@ -15,6 +17,8 @@ export class ImageViewerComponent implements OnInit {
   _error: boolean = false;
   _errorImageUrl = 'https://cdn.pixabay.com/photo/2016/10/25/23/54/not-found-1770320_960_720.jpg';
   _loaded: boolean = false;
+  _height: string;
+  _width: string;
 
   get ImageOrientation() {
     return ImageOrientation;
@@ -31,6 +35,19 @@ export class ImageViewerComponent implements OnInit {
   @ViewChild('displayedImage', {static: false}) displayedImage: ElementRef;
   @ViewChild('errorImage', {static: false}) errorImage: ElementRef;
   @ViewChild('imageContainer', {static: false}) imageContainer: ElementRef;
+  @ViewChild('mainContainer', {static: false}) mainContainer: ElementRef;
+
+  @Input() set height(val: string) {
+    this._height = val;
+    if(this._loaded) this.refreshDisplay();
+  }
+
+  @Input() set width(val: string) {
+    this._width = val;
+    if(this._loaded) this.refreshDisplay();
+  }
+
+  @Input() hoverEffect: boolean = false;
 
   @Input() set images(value: Image[] | Image) {
     this._selectedIndex = 0; 
@@ -52,20 +69,7 @@ export class ImageViewerComponent implements OnInit {
   }
 
   onLoadImage() {
-    this._orientation = null;
-    this.cdRef.detectChanges();
-    const image = this._error ? this.errorImage.nativeElement as HTMLImageElement : this.displayedImage.nativeElement as HTMLImageElement;
-    if(image.height > image.width) {
-      this._orientation = ImageOrientation.PORTRAIT;
-      image.style.marginTop = '0px';
-    } else {
-      this._orientation = ImageOrientation.LANDSCAPE;
-      const imageContainer = this.imageContainer.nativeElement as HTMLElement;
-      const emptySpace = imageContainer.offsetHeight - image.height;
-      image.style.marginTop = emptySpace / 2 + 'px';
-    }
-    this.cdRef.detectChanges();
-    this._loaded = true;
+    this.refreshDisplay();
   }
 
   next() {
@@ -82,6 +86,26 @@ export class ImageViewerComponent implements OnInit {
 
   invalidImage() {
     this._error = true;
+  }
+
+  refreshDisplay() {
+    this._orientation = null;
+    const container = this.mainContainer.nativeElement as HTMLElement;
+    container.style.height = this._height ? this._height : DEFAULT_HEIGHT;
+    if(this._width) container.style.width = this._width;
+    this.cdRef.detectChanges();
+    const image = this._error ? this.errorImage.nativeElement as HTMLImageElement : this.displayedImage.nativeElement as HTMLImageElement;
+    if(image.height > image.width) {
+      this._orientation = ImageOrientation.PORTRAIT;
+      image.style.marginTop = '0px';
+    } else {
+      this._orientation = ImageOrientation.LANDSCAPE;
+      this.cdRef.detectChanges();
+      const imageContainer = this.imageContainer.nativeElement as HTMLElement;
+      const emptySpace = imageContainer.offsetHeight - image.height;
+      image.style.marginTop = emptySpace / 2 + 'px';
+    }
+    this._loaded = true;
   }
 
 }

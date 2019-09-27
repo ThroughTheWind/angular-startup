@@ -1,7 +1,7 @@
 
-    <div class="detail-container" [formGroup]="group">
+    <div class="detail-container" [formGroup]="group" #detailContainer>
         <div class="image-container">
-            <app-image-viewer [images]="[image]"></app-image-viewer>     
+            <app-image-viewer [images]="[image]" [height]="imageHeight"></app-image-viewer>     
         </div>
         <div class="infos-container">
             <mat-form-field class="full-width">

@@ -1,9 +1,10 @@
 import { ValidateImage } from '../form.validators';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { ValidateUrl } from '../form.validators';
 import { Upload } from '../../../modules/upload/models/Upload';
 import { Image } from '../../models/Image';
+import { ImagePickerDetailComponent } from './image-picker-detail/image-picker-detail.component';
 
 @Component({
   selector: 'app-image-picker',
@@ -15,7 +16,9 @@ export class ImagePickerComponent implements OnInit {
 
   get images() { return this.parentForm.get('images'); }
 
-  constructor(private fb: FormBuilder) { }
+  @ViewChildren(ImagePickerDetailComponent) detailComponents: QueryList<ImagePickerDetailComponent>
+
+  constructor(private fb: FormBuilder, private cdk: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
@@ -32,6 +35,7 @@ export class ImagePickerComponent implements OnInit {
       url: [upload.downloadUrl],
       description: ['']
     }));
+    this.refreshDetailsDisplay();
   }
 
   loadImages(images: Image[]) {
@@ -46,5 +50,13 @@ export class ImagePickerComponent implements OnInit {
         description: image.description
       }));
     }
+    this.refreshDetailsDisplay();
+  }
+
+  refreshDetailsDisplay() {
+    this.cdk.detectChanges();
+    this.detailComponents.forEach(dtlCmp => {
+      dtlCmp.refreshDisplay();
+    })
   }
 }
