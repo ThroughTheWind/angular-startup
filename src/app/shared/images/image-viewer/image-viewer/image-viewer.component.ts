@@ -95,7 +95,7 @@ export class ImageViewerComponent implements OnInit {
     if(this._width) container.style.width = this._width;
     this.cdRef.detectChanges();
     const image = this._error ? this.errorImage.nativeElement as HTMLImageElement : this.displayedImage.nativeElement as HTMLImageElement;
-    if(image.height > image.width) {
+    if(image.height > image.width || container.offsetWidth > container.offsetHeight) {
       this._orientation = ImageOrientation.PORTRAIT;
       image.style.marginTop = '0px';
     } else {
