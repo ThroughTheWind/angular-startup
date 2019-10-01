@@ -18,6 +18,7 @@ import { ConfirmDialogComponent } from './shared/modals/confirm-dialog/confirm-d
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { ImageViewerModule } from './shared/images/image-viewer/image-viewer.module';
+import { CategoryModule } from './modules/category/category.module';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { ImageViewerModule } from './shared/images/image-viewer/image-viewer.mod
     AuthenticationModule,
     PostsModule,
     UploadModule,
+    CategoryModule,
     MaterialModule,
     ImageViewerModule
   ],

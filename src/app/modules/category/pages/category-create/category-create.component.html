@@ -1,0 +1,27 @@
+<mat-card class="form-container">
+    <mat-card-title>Create a new category</mat-card-title>
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" *ngIf="categoryForm">
+        <mat-card-content>
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Label" formControlName="label" autofocus required>
+                <mat-error *ngIf="label.errors?.required">
+                    Label is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <textarea matInput placeholder="Description" formControlName="description" [cdkTextareaAutosize]="true" [cdkAutosizeMaxRows]="5" [cdkAutosizeMinRows]="5"></textarea>
+            </mat-form-field>
+            <div class="full-width color-picker-ctn">
+                <div class="color-picker-label">
+                    Category color
+                </div>
+                <mcc-color-picker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="triggerColor" (selected)="appImageViewer.refreshDisplay()">
+                </mcc-color-picker>
+            </div>
+            <div hidden>
+                <input formControlName="color" mccColorPickerOrigin #triggerColor="mccColorPickerOrigin">
+            </div>
+        </mat-card-content>
+    </form>
+</mat-card>
+
