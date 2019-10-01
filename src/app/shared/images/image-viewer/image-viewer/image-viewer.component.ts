@@ -36,6 +36,8 @@ export class ImageViewerComponent implements OnInit {
   @ViewChild('errorImage', {static: false}) errorImage: ElementRef;
   @ViewChild('imageContainer', {static: false}) imageContainer: ElementRef;
   @ViewChild('mainContainer', {static: false}) mainContainer: ElementRef;
+  @ViewChild('titleContainer', {static: false}) titleContainer: ElementRef;
+  @ViewChild('descriptionContainer', {static: false}) descriptionContainer: ElementRef;
 
   @Input() set height(val: string) {
     this._height = val;
@@ -48,6 +50,8 @@ export class ImageViewerComponent implements OnInit {
   }
 
   @Input() hoverEffect: boolean = false;
+  @Input() displayDetails: boolean = true;
+  @Input() displayOnHover: boolean = false;
 
   @Input() set images(value: Image[] | Image) {
     this._selectedIndex = 0; 
@@ -105,6 +109,10 @@ export class ImageViewerComponent implements OnInit {
       const emptySpace = imageContainer.offsetHeight - image.height;
       image.style.marginTop = emptySpace / 2 + 'px';
     }
+    const titleCtn = this.titleContainer.nativeElement as HTMLElement;
+    const descriptionCtn = this.descriptionContainer.nativeElement as HTMLElement;
+    titleCtn.style.color = this.selectedImage.titleTextColor;
+    descriptionCtn.style.color = this.selectedImage.descriptionTextColor;
     this._loaded = true;
   }
 

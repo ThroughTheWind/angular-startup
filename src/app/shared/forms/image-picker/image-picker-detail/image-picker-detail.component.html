@@ -1,16 +1,33 @@
 
     <div class="detail-container" [formGroup]="group" #detailContainer>
         <div class="image-container">
-            <app-image-viewer [images]="[image]" [height]="imageHeight"></app-image-viewer>     
+            <app-image-viewer [images]="[image]" [height]="imageHeight" #appImageViewer></app-image-viewer>     
         </div>
         <div class="infos-container">
             <mat-form-field class="full-width">
                 <input matInput placeholder="Title" formControlName="title">
-            </mat-form-field>
+            </mat-form-field>            
+            <div hidden>
+                <input formControlName="titleTextColor" mccColorPickerOrigin #triggerTitle="mccColorPickerOrigin">
+                <input formControlName="descriptionTextColor" mccColorPickerOrigin #triggerDescription="mccColorPickerOrigin">
+            </div>
+            <div class="full-width color-picker-ctn">
+                <div class="color-picker-label">
+                    Title text color
+                </div>
+                <mcc-color-picker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="triggerTitle" (selected)="appImageViewer.refreshDisplay()">
+                </mcc-color-picker>
+            </div>
             <mat-form-field class="full-width">
                 <textarea matInput placeholder="Description" formControlName="description" [cdkTextareaAutosize]="true" [cdkAutosizeMaxRows]="5" [cdkAutosizeMinRows]="5"></textarea>
             </mat-form-field>
-            
+            <div class="full-width color-picker-ctn">
+                <div class="color-picker-label">
+                    Description text color
+                </div>
+                <mcc-color-picker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="triggerDescription" (selected)="appImageViewer.refreshDisplay()">
+                </mcc-color-picker>
+            </div>
             <button mat-button color="warn" (click)="onDelete()">Remove</button>
         </div>
     </div>

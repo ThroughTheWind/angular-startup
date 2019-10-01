@@ -5,19 +5,19 @@
         <img [src]="_errorImageUrl" *ngIf="_error" #errorImage (load)="onLoadImage()" 
             [class.portrait]="_orientation == ImageOrientation.PORTRAIT" [class.landscape]="_orientation == ImageOrientation.LANDSCAPE">
     </div>
-    <div class="hover-details">
-        <p class="mat-title">
+    <div class="hover-details" *ngIf="displayDetails" [class.onHover]="displayOnHover">
+        <p class="mat-title" #titleContainer>
             {{selectedImage.title}}
         </p>
-        <p class="mat-body">
+        <p class="mat-body" #descriptionContainer>
             {{selectedImage.description}}
         </p>
     </div>
     <div class="actions-ctn">
-        <div class="previous-ctn" [class.hoverEffect]="hoverEffect">
+        <div class="previous-ctn" [class.hoverEffect]="_selectedIndex > 0 && hoverEffect">
             <button class="previous-btn" *ngIf="length > 1" mat-icon-button [disabled]="_selectedIndex == 0" (click)="previous()"><mat-icon>keyboard_arrow_left</mat-icon></button> 
         </div>
-        <div class="next-ctn" [class.hoverEffect]="hoverEffect">
+        <div class="next-ctn" [class.hoverEffect]="_selectedIndex < length - 1 && hoverEffect">
             <button class="next-btn" mat-icon-button *ngIf="length > 1" [disabled]="_selectedIndex == length - 1" (click)="next()"><mat-icon>keyboard_arrow_right</mat-icon></button>
         </div>
     </div>

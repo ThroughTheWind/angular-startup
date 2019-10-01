@@ -1,6 +1,7 @@
 .image-viewer {
     text-align: center;
     position: relative;
+    transition: 1s;
     .image-container, .hover-details {
         position: absolute;
         width: 100%;
@@ -33,6 +34,13 @@
         justify-content: space-around;
     }
 
+    .hover-details.onHover {
+        display: none;
+        transition: 3s;
+    }
+
+    
+
     .actions-ctn {
         display: flex;
         flex-direction: row;
@@ -56,4 +64,10 @@
         }
     }
 
+}
+
+.image-viewer:hover {
+    .hover-details.onHover {
+        display: flex;
+    }
 }

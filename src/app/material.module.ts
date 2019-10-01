@@ -16,10 +16,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [],
   imports: [
+    BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
@@ -39,6 +41,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     OverlayModule
   ],
   exports: [
+    BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,

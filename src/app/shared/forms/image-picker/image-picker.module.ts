@@ -6,8 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UploadModule } from '../../../modules/upload/upload.module';
 import { MaterialModule } from '../../../material.module';
 import { ImageViewerModule } from '../../images/image-viewer/image-viewer.module';
-
-
+import { MccColorPickerModule } from 'material-community-components';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,11 @@ import { ImageViewerModule } from '../../images/image-viewer/image-viewer.module
     ReactiveFormsModule,
     UploadModule,
     MaterialModule,
-    ImageViewerModule
+    ImageViewerModule,
+    MccColorPickerModule.forRoot({
+      empty_color: 'transparent',
+      used_colors: ['#000000', '#FFFFFF', '#FFF555']
+    })
   ],
   exports: [ImagePickerComponent]
 })

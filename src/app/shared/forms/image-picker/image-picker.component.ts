@@ -33,7 +33,9 @@ export class ImagePickerComponent implements OnInit {
     images.push(this.fb.group({
       title: [''],
       url: [upload.downloadUrl],
-      description: ['']
+      description: [''],
+      titleTextColor: ['#000000'],
+      descriptionTextColor: ['#000000']
     }));
     this.refreshDetailsDisplay();
   }
@@ -47,7 +49,9 @@ export class ImagePickerComponent implements OnInit {
       imagesArray.push(this.fb.group({
         url: image.url,
         title: image.title,
-        description: image.description
+        description: image.description,
+        titleTextColor: image.titleTextColor,
+        descriptionTextColor: image.descriptionTextColor
       }));
     }
     this.refreshDetailsDisplay();
