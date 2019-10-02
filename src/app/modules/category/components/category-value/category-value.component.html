@@ -1,0 +1,25 @@
+<mat-list-item [formGroup]="group">
+    <mat-icon matListIcon #valueIcon>grade</mat-icon>
+    <div hidden>
+        <input formControlName="color" mccColorPickerOrigin #triggerColor="mccColorPickerOrigin">
+    </div>
+    <div class="content-container">
+        <mat-form-field>
+            <input matInput placeholder="Label" formControlName="label" autofocus required>
+            <mat-error *ngIf="label.errors?.required">
+                Label is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <div class="color-picker-ctn">
+            <div class="color-picker-label">
+                Color
+            </div>
+            <mcc-color-picker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="triggerColor" (selected)="changeColor($event)">
+            </mcc-color-picker>
+        </div>
+        <div>
+            <button mat-button (click)="onDelete()"><mat-icon>delete</mat-icon> Delete</button>
+        </div>
+    </div>
+    
+</mat-list-item>

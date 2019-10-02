@@ -8,11 +8,13 @@ import { DefaultComponent } from './pages/default/default.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CategoryCreateComponent } from './pages/category-create/category-create.component';
 import { MccColorPickerModule } from 'material-community-components';
+import { CategoryValueComponent } from './components/category-value/category-value.component';
+import { CategoryEditComponent } from './pages/category-edit/category-edit.component';
 
 
 
 @NgModule({
-  declarations: [CategoriesComponent, CategoryNavComponent, DefaultComponent, CategoryCreateComponent],
+  declarations: [CategoriesComponent, CategoryNavComponent, DefaultComponent, CategoryCreateComponent, CategoryValueComponent, CategoryEditComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

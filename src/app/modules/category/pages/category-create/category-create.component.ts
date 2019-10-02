@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { CategoryService } from '../../services/category.service';
+import { Category } from '../../models/Category';
+import { Router } from '@angular/router';
+import { CategoryFormComponent } from '../../components/category-form/category-form.component';
 
 @Component({
   selector: 'app-category-create',
-  templateUrl: './category-create.component.html',
-  styleUrls: ['./category-create.component.less']
+  templateUrl: '../../components/category-form/category-form.component.html',
+  styleUrls: ['../../components/category-form/category-form.component.less']
 })
-export class CategoryCreateComponent implements OnInit {
+export class CategoryCreateComponent extends CategoryFormComponent {
 
-  categoryForm: FormGroup;
-
-  get label() { return this.categoryForm.get('label'); }
-
-  constructor(private fb: FormBuilder) { }
-
-  ngOnInit() {
-    this.categoryForm = this.getControls();
+  constructor(protected fb: FormBuilder, protected service: CategoryService, protected router: Router) {
+    super(fb, service, router);
   }
 
-  getControls() {
-    return this.fb.group({
-      label: ['', Validators.required],
-      description: [''],
-      values: this.fb.array([])
-    })
+  init() {
+    this.title = 'Create a new category';
   }
+
+  save(category: Category) {
+    return this.service.addCategory(category);
+  }
+
+  cancel() {}
 
 }
