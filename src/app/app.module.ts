@@ -19,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { ImageViewerModule } from './shared/images/image-viewer/image-viewer.module';
 import { CategoryModule } from './modules/category/category.module';
+import { UserMenuModule } from './shared/modals/user-menu/user-menu.module';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { CategoryModule } from './modules/category/category.module';
     UploadModule,
     CategoryModule,
     MaterialModule,
-    ImageViewerModule
+    ImageViewerModule,
+    UserMenuModule
   ],
   providers: [],
   entryComponents: [ConfirmDialogComponent],

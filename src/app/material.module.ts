@@ -41,7 +41,7 @@ import { MatSidenavModule, MatListModule } from '@angular/material';
     MatNativeDateModule,
     OverlayModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,    
   ],
   exports: [
     BrowserAnimationsModule,
