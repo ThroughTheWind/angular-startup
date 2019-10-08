@@ -12,6 +12,7 @@ import { AuthenticationComponent } from './components/authentication.component';
 import { LoginComponent } from './components/login/login.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { GuardedComponent } from './components/guarded/guarded.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { GuardedComponent } from './components/guarded/guarded.component';
     AuthenticationComponent,
     LoginComponent,
     GuardedComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,

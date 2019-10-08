@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase/app';
 
 const USER_KEY = 'user';
 
@@ -36,6 +37,52 @@ export class AuthenticationService {
 
   logOut() {
     from(this.afAuth.auth.signOut()).subscribe(() => localStorage.removeItem(USER_KEY));
+  }
+
+  facebookLogin(){
+    return new Observable(observer => {
+      let provider = new firebase.auth.FacebookAuthProvider();
+      this.afAuth.auth
+      .signInWithPopup(provider)
+      .then(res => {
+        observer.next(res);
+      }, err => {
+        console.log(err);
+        observer.error(err);
+      })
+    });
+  }
+
+  googleLogin(){
+    return new Observable(observer => {
+      let provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      this.afAuth.auth
+        .signInWithPopup(provider)
+        .then(res => {
+          observer.next(res);
+        }, err => {
+          console.log(err);
+          observer.error(err);
+        });
+    });
+  }
+
+  register(authentication: Authentication) {
+    return new Observable(observer => {
+      if(authentication.isValid()) {
+        firebase.auth().createUserWithEmailAndPassword(authentication.email, authentication.password)
+          .then(res => {
+            observer.next(res);
+          }, err => {
+            console.log(err);
+            observer.error(err);
+          });
+      } else {
+        observer.error();
+      }
+    });
   }
 
 }
