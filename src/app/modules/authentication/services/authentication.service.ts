@@ -31,7 +31,10 @@ export class AuthenticationService {
   logIn(authentication: Authentication): Observable<boolean> {
     const authObservable = from(this.afAuth.auth.signInWithEmailAndPassword(authentication.email, authentication.password));
     return authObservable.pipe(
-      map(user => user ? true : false)
+      map(user => {
+        this.handleEmailLogin(user);
+        return user ? true : false;
+      })
     );
   }
 
@@ -45,6 +48,7 @@ export class AuthenticationService {
       this.afAuth.auth
       .signInWithPopup(provider)
       .then(res => {
+        this.handleFacebookLogin(res);
         observer.next(res);
       }, err => {
         console.log(err);
@@ -61,6 +65,7 @@ export class AuthenticationService {
       this.afAuth.auth
         .signInWithPopup(provider)
         .then(res => {
+          this.handleGoogleLogin(res);
           observer.next(res);
         }, err => {
           console.log(err);
@@ -74,6 +79,7 @@ export class AuthenticationService {
       if(authentication.isValid()) {
         firebase.auth().createUserWithEmailAndPassword(authentication.email, authentication.password)
           .then(res => {
+            this.handleEmailRegister(res);
             observer.next(res);
           }, err => {
             console.log(err);
@@ -83,6 +89,30 @@ export class AuthenticationService {
         observer.error();
       }
     });
+  }
+
+  handleGoogleRegister(res: any) {
+
+  }
+
+  handleFacebookRegister(res: any) {
+    
+  }
+
+  handleEmailRegister(res: any) {
+    
+  }
+
+  handleGoogleLogin(res: any) {
+
+  }
+
+  handleFacebookLogin(res: any) {
+    
+  }
+
+  handleEmailLogin(res: any) {
+    
   }
 
 }

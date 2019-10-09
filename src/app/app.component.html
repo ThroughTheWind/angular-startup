@@ -8,7 +8,8 @@
                 <button mat-raised-button color="accent" (click)="logOut()">Log Out</button>
             </ng-container>
             <ng-container *ngIf="!isAuthenticated()">
-                <a mat-raised-button color="accent" routerLink="/authentication/login">Log In</a>
+                <a mat-button routerLink="/authentication/login">Log In</a>
+                <a mat-button routerLink="/authentication/register">Register</a>
             </ng-container>
         </mat-toolbar-row>
         <mat-toolbar-row>

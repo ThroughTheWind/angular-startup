@@ -8,6 +8,7 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
 
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { AnonymousGuard } from './guards/anonymous.guard';
+import { RegisterComponent } from './components/register/register.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
         path: '',
         children: [
           { path: 'login', component: LoginComponent, canActivate: [AnonymousGuard] },
+          { path: 'register', component: RegisterComponent, canActivate: [AnonymousGuard] },
           { path: 'guarded', component: GuardedComponent, canActivate: [AuthenticationGuard] },
           { path: '401', component: UnauthorizedComponent }
         ]
