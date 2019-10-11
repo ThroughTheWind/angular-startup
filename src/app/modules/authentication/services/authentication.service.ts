@@ -78,7 +78,7 @@ export class AuthenticationService {
     return new Observable(observer => {
       if(authentication.isValid()) {
         firebase.auth().createUserWithEmailAndPassword(authentication.email, authentication.password)
-          .then(res => {
+          .then((res) => {
             this.handleEmailRegister(res);
             observer.next(res);
           }, err => {

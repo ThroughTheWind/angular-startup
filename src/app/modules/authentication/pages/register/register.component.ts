@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
-import { ValidateEmail } from '../../../../shared/forms/form.validators';
+import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
+import { ValidateEmail, ValidatePassword, MustMatch } from '../../../../shared/forms/form.validators';
 import { Authentication } from '../../models/authentication';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -30,22 +30,19 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm = this.fb.group({
-    email: ['', [Validators.required, ValidateEmail]],
-    password: ['', Validators.required],
-    confirmPassword: ['', [Validators.required]]
-  });
+  registerForm: FormGroup;
 
   get email() {return this.registerForm.get('email'); }
   get password() {return this.registerForm.get('password'); }
   get confirmPassword() {return this.registerForm.get('confirmPassword'); }
-  apiError: any;
 
+  apiError: any;
   emailLogin: string = 'closed';
 
   constructor(private authService: AuthenticationService, private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.registerForm = this.getControls();
   }
 
   googleLogin() {
@@ -75,9 +72,13 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  handleError(err) {
+    this.apiError = err;
+  }
+
   onSubmit() {
     if(!this.registerForm.valid) return;
-    this.authService.register(this.registerForm.value as Authentication)
+    this.authService.register(new Authentication(this.registerForm.value.email, this.registerForm.value.password))
       .subscribe(res => {
 
       }, err => {
@@ -85,7 +86,13 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  handleError(err) {
-    this.apiError = err;
+  getControls() {
+    return this.fb.group({
+      email: ['', [Validators.required, ValidateEmail]],
+      password: ['', [Validators.required, ValidatePassword]],
+      confirmPassword: ['', [Validators.required]]
+    }, {
+      validator: MustMatch('password', 'confirmPassword') 
+    });
   }
 }

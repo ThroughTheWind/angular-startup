@@ -8,16 +8,17 @@ import { CommonModule } from '@angular/common';
 
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 
-import { AuthenticationComponent } from './components/authentication.component';
-import { LoginComponent } from './components/login/login.component';
-import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
-import { GuardedComponent } from './components/guarded/guarded.component';
-import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './pages/login/login.component';
+import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
+import { GuardedComponent } from './pages/guarded/guarded.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { MaterialModule } from '../../material.module';
+import { MainComponent } from './components/main/main.component';
 
 
 @NgModule({
   declarations: [
-    AuthenticationComponent,
+    MainComponent,
     LoginComponent,
     GuardedComponent,
     UnauthorizedComponent,
@@ -27,10 +28,7 @@ import { RegisterComponent } from './components/register/register.component';
     CommonModule,
     ReactiveFormsModule,
     AuthenticationRoutingModule,
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule,
-    MatIconModule
+    MaterialModule
   ]
 })
 export class AuthenticationModule { }

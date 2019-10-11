@@ -1,0 +1,49 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+    <mat-card class="login-card" class="both-center">
+        <mat-card-header>
+            <div mat-card-avatar><mat-icon>input</mat-icon></div>
+            <mat-card-title>Register</mat-card-title>
+            <mat-card-subtitle>Create a new account</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="form-container">
+            <button mat-button type="button" (click)="googleLogin()">REGISTER WITH GOOGLE</button>
+            <button mat-button type="button" (click)="facebookLogin()">REGISTER WITH FACEBOOK</button>
+            <button mat-button type="button" (click)="emailLoginClick()">REGISTER WITH EMAIL/PASSWORD</button>
+            <div class="cls-lgn-ctn" [@emailLoginToggle]="emailLogin">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Email" formControlName="email">
+                    <mat-error *ngIf="email.errors?.required">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="email.errors?.validEmail && !email.errors?.required">
+                        Email must be valid.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Password" formControlName="password" type="password">
+                    <mat-error *ngIf="password.errors?.required">
+                        Password is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="password.errors?.validPassword && !password.errors?.required">
+                        Password must contain at least <strong>8 caracters</strong>, <strong>1 upper and lower case</strong>, <strong>1 digit</strong> and <strong>1 special caracter</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password">
+                    <mat-error *ngIf="confirmPassword.errors?.required">
+                        Password confirmation is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="confirmPassword.errors?.mustMatch && !confirmPassword.errors?.required">
+                        Password confirmation <strong>must match password</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-card-actions>
+                    <button mat-button type="submit" [disabled]="!registerForm.valid" color="primary">NEXT</button>
+                </mat-card-actions>
+            </div>
+            <mat-error *ngIf="apiError" class="api-error">
+                {{apiError}}
+            </mat-error>
+        </mat-card-content>
+    </mat-card>
+</form>
